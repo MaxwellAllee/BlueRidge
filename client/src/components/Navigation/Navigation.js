@@ -10,16 +10,11 @@ class Navigation extends Component {
 
   state = {
     collapsed: true,
-    count: 0,
-    redirect: this.props.loginPage,
-    test:"monkey",
-    anotherTest: ()=> this.setState({test:"lion"})
-    
+    count: 1,
+    redirect: this.props.test,
+   
   }
-  clicked=()=>{
-    this.setState({test:"lion"})
-    console.log("clicked")
-  }
+  
   toggleCollapse = () => {
     this.setState({
       collapsed: !this.state.collapsed
@@ -28,15 +23,13 @@ class Navigation extends Component {
   constuctor() {
     this.routeChange = this.routeChange.bind(this);
   }
-  reset = ()=>{
-    this.setState({redirect: false})
-  }
+  
   login = () => {
-    console.log(this.state.count)
+    console.log(this.context.user)
     if (this.state.count === 3) {
-      
-      this.props.switchLogin()
-      console.log(this.state.redirect)
+      this.setState({count :1})
+      this.props.click(true)
+
     }
     else {
       this.setState({ count: this.state.count + 1 })
@@ -45,17 +38,18 @@ class Navigation extends Component {
   }
   render() {
     const { user } = this.context;
-    const { collapsed } = this.state;
-    const {styleUpdate} = this.state
+    // const { collapsed } = this.state;
+    // const {styleUpdate} = this.state;
     // const targetClass = `collapse navbar-collapse ${!collapsed && 'show'}`;
     // const togglerClass = `navbar-toggler ${collapsed && 'collapsed'}`;
-  
+
     return (
       <div className='Navigation'>
+       
         <Route exact path="/" render={() => (
-          this.state.redirect ? (
+          this.props.test ? (
             <Redirect to="/login" />
-
+            
           ):(null)
         )} />
         <nav className='navbar navbar-expand-lg mb-3'style={{height: user && "255px"}}>
@@ -69,9 +63,9 @@ class Navigation extends Component {
                 <div className="inner-grid-item"><a href="http://google.com">Latest Update</a></div>
                 <div className="inner-grid-item"><a href="http://google.com">Archive</a></div>
                </div>
-              {user && <div className="grid-item placement whiteOut"><div className="inner-grid-item"></div><div className="inner-grid-item"></div><div className="inner-grid-item"></div><div className="inner-grid-item linkColor"><AuthDropdown onClick={this.toggleCollapse} /></div></div>}
-               {this.state.redirect}
-              
+              {user && <div className="grid-item placement whiteOut"><div className="inner-grid-item"></div>
+              <div className="inner-grid-item"></div><div className="inner-grid-item"></div>
+              <div className="inner-grid-item linkColor"><AuthDropdown onClick={this.toggleCollapse} /></div></div>}
             </div>
           </div>
         </nav>

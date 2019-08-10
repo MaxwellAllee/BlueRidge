@@ -12,9 +12,10 @@ import Home from '../../pages/Home/Home';
 import NotFound from '../../pages/NotFound/NotFound';
 
 import './App.css';
-import { animationFrameScheduler } from 'rxjs';
+// import { animationFrameScheduler } from 'rxjs';
 
 class App extends Component {
+  
   constructor(props) {
     super(props);
 
@@ -33,18 +34,19 @@ class App extends Component {
         user: undefined,
         authToken: TokenStore.getToken(),
         onLogin: this.handleLogin,
-        onLogout: this.handleLogout
+        onLogout: this.handleLogout,
+        
+        
       },
-      
+      test:false,
+      click: (change)=>{
+        this.setState({test:change})
+        
+      }
     }
   }
-  state ={
-    onLogin:false,
-      switchLogin:function(){this.setState({onLogin:true})
-    console.log("hit it", this.state.onLogin)
-    }
-  }
-
+  
+  
   componentDidMount() {
     const { authToken } = this.state.auth;
     if (!authToken) return;
@@ -56,17 +58,18 @@ class App extends Component {
   }
 
   render() {
+    
     return (
       <AuthContext.Provider value={this.state.auth}>
         <div className='App'>
           <Navigation {...this.state} />
           <div className='container'>
             <Switch>
-              
-              <Route path='/login' {...this.state} component={Login} />
+
+              <Route   path='/login' render={(props)=><Login {...props}{...this.state}/>} />
               <PrivateRoute path='/secret' component={Secret} />
-              <Route exact path='/'  component={Home} />
-             
+              <Route exact path='/' component={Home} />
+
               <Route component={NotFound} />
             </Switch>
           </div>

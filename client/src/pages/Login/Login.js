@@ -12,7 +12,9 @@ class Login extends Component {
     redirectToReferrer: false,
     error: ""
   }
-
+  componentDidMount (){
+    this.props.click(false)
+  }
   handleSubmit = (email, password) => {
     API.Users.login(email, password)
       .then(response => response.data)
