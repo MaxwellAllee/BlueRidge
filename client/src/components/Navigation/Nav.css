@@ -31,6 +31,7 @@ nav{
   .inner-grid{
     display: grid;
     grid-template-columns: 20% 20% 20% 20% 20%;
+    font-family: 'Karma', serif;
   }
   .inner-grid-item{
     font-size: 1.75em;

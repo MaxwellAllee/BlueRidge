@@ -7,7 +7,6 @@ import LoginForm from '../../components/LoginForm/LoginForm';
 
 class Login extends Component {
   static contextType = AuthContext;
-
   state = {
     redirectToReferrer: false,
     error: ""
