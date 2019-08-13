@@ -9,6 +9,7 @@ import PrivateRoute from '../../components/PrivateRoute/PrivateRoute';
 import Login from '../../pages/Login/Login';
 import Secret from '../../pages/Secret/Secret';
 import Home from '../../pages/Home/Home';
+import addPhoto from '../../pages/addPhoto/addPhoto'
 import NotFound from '../../pages/NotFound/NotFound';
 
 import './App.css';
@@ -69,7 +70,7 @@ class App extends Component {
               <Route   path='/login' render={(props)=><Login {...props}{...this.state}/>} />
               <PrivateRoute path='/secret' component={Secret} />
               <Route exact path='/' component={Home} />
-
+              <PrivateRoute path='/addphoto' component={addPhoto} />
               <Route component={NotFound} />
             </Switch>
           </div>

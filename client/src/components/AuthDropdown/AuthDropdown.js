@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-// import { Link } from 'react-router-dom';
+import { Link } from 'react-router-dom';
 import Gravatar from 'react-gravatar';
 
 import AuthContext from '../../contexts/AuthContext';
@@ -15,7 +15,7 @@ class AuthDropdown extends Component {
     this.setState({
       isOpen: !this.state.isOpen
     });
-    
+
   }
 
   handleLogout = () => {
@@ -33,9 +33,10 @@ class AuthDropdown extends Component {
       <div className="nav-item dropdown">
         <button className="btn btn-link dropdown-toggle" onClick={this.toggleOpen} id="navbarDropdown" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
           <Gravatar className="rounded-circle" email={user.email} size={50} />
-          
+
         </button>
         <div className={dropdownMenuClass} aria-labelledby="navbarDropdown">
+          <Link className='dropdown-item' to='/addphoto' onClick={this.toggleOpen}>Add Photos</Link>
           <div className="dropdown-item" onClick={this.handleLogout}>Logout</div>
         </div>
       </div>

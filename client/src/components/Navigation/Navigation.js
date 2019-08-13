@@ -63,9 +63,8 @@ class Navigation extends Component {
                 <div className="inner-grid-item"><a href="http://google.com">Latest Update</a></div>
                 <div className="inner-grid-item"><a href="http://google.com">Archive</a></div>
                </div>
-              {user && <div className="grid-item placement whiteOut"><div className="inner-grid-item"></div>
-              <div className="inner-grid-item"></div><div className="inner-grid-item"></div>
-              <div className="inner-grid-item linkColor"><AuthDropdown onClick={this.toggleCollapse} /></div></div>}
+              {user && 
+              <div className="inner-grid-item linkColor"><AuthDropdown onClick={this.toggleCollapse} /></div>}
             </div>
           </div>
         </nav>
