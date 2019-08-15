@@ -8,11 +8,7 @@ body {
     sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
-  background-image: url("./pages/Home/background.jpg");
-  background-attachment: fixed;
-  background-position: center; 
-background-repeat: no-repeat; 
-background-size: cover; 
+  background-color: rgba(43, 43, 149, 0.418)
 }
 
 code {

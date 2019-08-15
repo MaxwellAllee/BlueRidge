@@ -11,10 +11,11 @@ import Secret from '../../pages/Secret/Secret';
 import Home from '../../pages/Home/Home';
 import addPhoto from '../../pages/addPhoto/addPhoto'
 import NotFound from '../../pages/NotFound/NotFound';
-
+import Gallery from '../../pages/Gallery/Gallery'
 import './App.css';
 // import { animationFrameScheduler } from 'rxjs';
-
+import globalBackground from './backgroundImage/background.jpg'
+import nightBackground from './backgroundImage/night1.jpg'
 class App extends Component {
   
   constructor(props) {
@@ -39,11 +40,22 @@ class App extends Component {
         
         
       },
+      another:"test",
       test:false,
       click: (change)=>{
+        console.log(change)
         this.setState({test:change})
         
-      }
+      },
+      backChange:(change)=>{
+        console.log(change, "clicked")
+        if(change){
+          this.setState({background:nightBackground})
+        }else{
+          this.setState({background:globalBackground})
+        }
+      },
+      background: globalBackground
     }
   }
   
@@ -59,21 +71,24 @@ class App extends Component {
   }
 
   render() {
-    
+    const hiddenLoad ={'backgroundImage' : `url(${nightBackground})`, 'noRepeat': '-9999px -9999px'}
+    const bStyle = {'backgroundImage': `url(${this.state.background})`}
     return (
       <AuthContext.Provider value={this.state.auth}>
-        <div className='App'>
+        <div className='App' style={bStyle}>
           <Navigation {...this.state} />
           <div className='container'>
             <Switch>
 
               <Route   path='/login' render={(props)=><Login {...props}{...this.state}/>} />
-              <PrivateRoute path='/secret' component={Secret} />
               <Route exact path='/' component={Home} />
+              <Route exact path='/gallery' render={(props)=><Gallery {...props}{...this.state}/>}/>
+              <PrivateRoute path='/secret' component={Secret} />
               <PrivateRoute path='/addphoto' component={addPhoto} />
               <Route component={NotFound} />
             </Switch>
           </div>
+          <div style={hiddenLoad}></div>
         </div>
       </AuthContext.Provider>
     );

@@ -23,3 +23,11 @@
 .subButton{
     border-radius: 2px;
 }
+.fileN{
+    margin-bottom: 5px;
+}
+#error{
+    color:red;
+    font-size: 25px;
+    font-weight: 500
+}

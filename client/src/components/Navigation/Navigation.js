@@ -3,7 +3,7 @@ import { Link, Route, Redirect } from 'react-router-dom';
 import './Nav.css';
 import AuthContext from '../../contexts/AuthContext';
 import AuthDropdown from '../../components/AuthDropdown/AuthDropdown';
-// import Test from '../../components/test/test'
+
 import logo from './icon1.png'
 class Navigation extends Component {
   static contextType = AuthContext;
@@ -25,16 +25,16 @@ class Navigation extends Component {
   }
   
   login = () => {
-    console.log(this.context.user)
+    console.log(this.state.count)
     if (this.state.count === 3) {
-      this.setState({count :1})
+      this.setState({count : 1})
       this.props.click(true)
-
+      setTimeout(()=>{console.log(this.props.test)},5000)
     }
     else {
       this.setState({ count: this.state.count + 1 })
     }
-
+    
   }
   render() {
     const { user } = this.context;
@@ -52,13 +52,14 @@ class Navigation extends Component {
             
           ):(null)
         )} />
+        
         <nav className='navbar navbar-expand-lg mb-3'style={{height: user && "255px"}}>
           <div className="grid-container">
             <div className="grid-item"></div>
             <div className="grid-item placement">
               <div className="inner-grid">
                 <div className="inner-grid-item"><Link className='nav-link' to='/'>Home</Link></div>
-                <div className="inner-grid-item"><a href="http://google.com">Gallery</a></div>
+                <div className="inner-grid-item"><Link className='nav-link' to='/gallery'>Gallery</Link></div>
                 <div className="inner-grid-item"><img src={logo} alt="icon" className="icon" onClick={this.login} /></div>
                 <div className="inner-grid-item"><a href="http://google.com">Latest Update</a></div>
                 <div className="inner-grid-item"><a href="http://google.com">Archive</a></div>

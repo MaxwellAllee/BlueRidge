@@ -1,11 +1,19 @@
 import React, { Component } from 'react';
 
 import logo from './logo.svg';
-
+import './Home.css'
 class HomePage extends Component {
+  state = {
+    mounted :false
+  }
+  componentDidMount(){
+    this.setState({mounted:true})
+  };
   render() {
+    
     return (
       <div className='Home'>
+        
         <div className='row'>
           <div className='col'>
             <img src={logo} className='App-logo' alt='logo' />

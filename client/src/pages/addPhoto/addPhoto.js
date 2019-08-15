@@ -6,7 +6,7 @@ class addPhoto extends Component {
   render() {
     return (
       <div className='Home'>
-       <h1>Uploade Image</h1>
+       <h1>Upload Image</h1>
        <PhotoForm/>
       </div>
     );
