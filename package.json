@@ -11,5 +11,8 @@
   "devDependencies": {
     "concurrently": "^4.1.0",
     "nodemon": "^1.18.10"
+  },
+  "dependencies": {
+    "lodash": "^4.17.13"
   }
 }
