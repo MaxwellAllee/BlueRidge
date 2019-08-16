@@ -16,6 +16,8 @@
   },
   "devDependencies": {
     "concurrently": "^4.1.0",
-    "nodemon": "^1.18.10"
+    "nodemon": "^1.18.10",
+    "sequelize": "^5.15.0",
+    "sequelize-cli": "^5.5.0"
   }
 }
