@@ -4,12 +4,17 @@
   "license": "MIT",
   "main": "server/server.js",
   "scripts": {
-    "start": "node server/server.js",
+    "start": "cd server && node server.js",
     "start:dev": "concurrently -n client,server \"yarn run client:dev\" \"nodemon server/server.js\"",
     "client:dev": "cd client && yarn start"
   },
   "devDependencies": {
     "concurrently": "^4.1.0",
     "nodemon": "^1.18.10"
+  },
+  "dependencies": {
+    "dotenv": "^8.0.0",
+    "express": "^4.17.1",
+    "lodash": "^4.17.13"
   }
 }
