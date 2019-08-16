@@ -13,6 +13,7 @@
     "nodemon": "^1.18.10"
   },
   "dependencies": {
-    "lodash": "^4.17.13"
+    "lodash": "^4.17.13",
+    "yarn": "^1.17.3"
   }
 }
