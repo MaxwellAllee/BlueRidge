@@ -19,5 +19,10 @@ photosController.post('/', JWTVerifier, upload.single('file'), (req, res) => {
         });
     }
 });
+photosController.get('/',(req,res)=>{
+    db.Photos.findAll().then(photos=>{
+        res.json(photos)
+    })
+})
 
 module.exports = photosController;
