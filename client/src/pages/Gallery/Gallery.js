@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
-import API from '../../lib/API';
-import './assets/css/Gallery.css'
 
+import './assets/css/Gallery.css'
+import Gall from '../../components/Gall/Gall'
 
 class Gallery extends Component {
  
@@ -22,7 +22,9 @@ class Gallery extends Component {
 
   render() {
     return (
-      <div></div>
+      <div>
+        <Gall/>
+      </div>
     );
   }
 }

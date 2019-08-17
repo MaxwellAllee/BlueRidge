@@ -25,7 +25,7 @@ export default {
     }
   },
  Photos:{
-  arePhotos: function(){
+    allPhotos: function(){
     return axios.get("/api/photos")     
     },
     getThePhoto: function(name){
