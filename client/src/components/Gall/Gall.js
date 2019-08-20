@@ -63,7 +63,7 @@ class Gall extends Component {
         >
  
           <h2 ref={subtitle => this.subtitle = subtitle}>Hello</h2>
-          <img src={`uploads/${this.state.mainPhoto}`} onClick={this.openModal} className="mainPhoto" alt="main photo" />
+          <img src={`uploads/${this.state.mainPhoto}`} onClick={this.openModal} className="modalPhoto" alt="modal photo" />
         </Modal>
         <div class="gallGrid">
         {photos.length ? (photos.map(filez => {
