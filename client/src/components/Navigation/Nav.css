@@ -2,8 +2,9 @@
 nav{
     background-image: url('navImage.png');
     background-position: left bottom;
-    widows: 100vw;
+    max-width: 100vw;
     height: 175px;
+   
     background-size: cover; 
     
 }

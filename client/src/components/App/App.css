@@ -7,7 +7,9 @@
   height: 40vmin;
   pointer-events: none;
 }
-
+.Login{
+  width: 75%;
+}
 .App-header {
   background-color: #282c34;
   min-height: 100vh;
@@ -29,7 +31,7 @@
 background-repeat: no-repeat; 
 background-attachment: fixed;
 background-size: cover; 
-height: 100vh;
+min-height: 100vh;
 }
 
 
