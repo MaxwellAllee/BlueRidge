@@ -3,7 +3,7 @@ import React, { Component } from 'react';
 
 import PageForm from '../../components/PageForm/PageForm'
 
-class Gallery extends Component {
+class addPages extends Component {
  
 
   state = {
@@ -19,4 +19,4 @@ class Gallery extends Component {
   }
 }
 
-export default Gallery;
+export default addPages;

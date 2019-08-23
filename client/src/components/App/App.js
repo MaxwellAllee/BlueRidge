@@ -83,10 +83,11 @@ class App extends Component {
 
               <Route   path='/login' render={(props)=><Login {...props}{...this.state}/>} />
               <Route exact path='/' component={Home} />
-              <Route exact path='/gallery' render={(props)=><Gallery {...props}{...this.state}/>}/>
+
               <PrivateRoute path='/secret' component={Secret} />
               <PrivateRoute path='/addphoto' component={addPhoto} />
               <PrivateRoute path='/addpage' component={addPage} />
+              <Route exact path='/gallery' component={Gallery}/>
               <Route component={NotFound} />
             </Switch>
           </div>
