@@ -36,6 +36,7 @@ class AuthDropdown extends Component {
 
         </button>
         <div className={dropdownMenuClass} aria-labelledby="navbarDropdown">
+        <Link className='dropdown-item' to='/addpage' onClick={this.toggleOpen}>Add A Page</Link>
           <Link className='dropdown-item' to='/addphoto' onClick={this.toggleOpen}>Add Photos</Link>
           <div className="dropdown-item" onClick={this.handleLogout}>Logout</div>
         </div>
