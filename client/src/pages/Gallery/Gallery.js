@@ -12,14 +12,6 @@ class Gallery extends Component {
     mounted:false
   }
 
-  componentDidMount() {
-    this.props.backChange(true)
-
-  }
-  componentWillUnmount(){
-    this.props.backChange(false)
-  }
-
   render() {
     return (
       <div>

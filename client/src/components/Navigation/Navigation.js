@@ -52,8 +52,8 @@ class Navigation extends Component {
             
           ):(null)
         )} />
-        
-        <nav className='navbar navbar-expand-lg mb-3'style={{height: user && "255px"}}>
+        {/* style={{height: user && "255px"}} */}
+        <nav className='navbar navbar-expand-lg mb-3'className={user&&'loggedIn'} >
           <div className="grid-container">
             <div className="grid-item"></div>
             <div className="grid-item placement">
