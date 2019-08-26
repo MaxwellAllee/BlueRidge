@@ -51,5 +51,17 @@ export default {
        
         return axios.post(url, formData, config)
     }
+  },
+  Pages:{
+    allPages: function(){
+      
+      return axios.get("/api/pages")     
+      },
+    create: function(page){
+      return axios.put("/api/pages", page)
+    },
+    update: function(page,id){
+      return axios.post('/api/pages',{pageInfo:page,id:id})
+    }
   }
 }

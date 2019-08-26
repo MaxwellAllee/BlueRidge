@@ -80,6 +80,10 @@
     
 }
 @media only screen and (max-width: 430px) {
+  .mainPhoto{
+    max-width: 300px;
+    max-height: 300px
+  }
   .gallGrid > div {
     min-width: 100px;
     min-height: 100px;

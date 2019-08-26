@@ -12,6 +12,7 @@ import Home from '../../pages/Home/Home';
 import addPhoto from '../../pages/addPhoto/addPhoto'
 import NotFound from '../../pages/NotFound/NotFound';
 import Gallery from '../../pages/Gallery/Gallery'
+import addPage from '../../pages/addPage/addPage'
 import './App.css';
 // import { animationFrameScheduler } from 'rxjs';
 import globalBackground from './backgroundImage/background.jpg'
@@ -82,9 +83,11 @@ class App extends Component {
 
               <Route   path='/login' render={(props)=><Login {...props}{...this.state}/>} />
               <Route exact path='/' component={Home} />
-              <Route exact path='/gallery' render={(props)=><Gallery {...props}{...this.state}/>}/>
+
               <PrivateRoute path='/secret' component={Secret} />
               <PrivateRoute path='/addphoto' component={addPhoto} />
+              <PrivateRoute path='/addpage' component={addPage} />
+              <Route exact path='/gallery' component={Gallery}/>
               <Route component={NotFound} />
             </Switch>
           </div>

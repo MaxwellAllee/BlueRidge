@@ -66,10 +66,16 @@ nav{
  .whiteOut{
   border-radius: 0px 0px 30px 30px;
  }
+ .loggedIn{
+  height: 255px;
+}
   @media only screen and (max-width: 1000px) {
     .grid-container{
       grid-template-columns: 0% 100% 0%;
       padding-right: 4%
+    }
+    .loggedIn{
+      height: 230px;
     }
     #guy{
       float: none;
@@ -86,9 +92,10 @@ nav{
   }
 
   @media only screen and (max-width: 700px) {
-   
+    .loggedIn{
+      height: 209px;
+    }
     nav{
-      height: 150px;
       padding:0px!important;
     }
     .inner-grid-item{
@@ -98,6 +105,9 @@ nav{
 
   }
   @media only screen and (max-width: 400px) {
+    .loggedIn{
+      height: 175px;
+    }
     .inner-grid-item{
       font-size: 1.25em;
       padding: 5px;
