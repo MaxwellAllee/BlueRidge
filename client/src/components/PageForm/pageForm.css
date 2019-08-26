@@ -1,3 +1,6 @@
+.PageForm{
+    min-width: 50%;
+}
 .boxStyle{ 
     width : 100%; 
     height:20vh;
@@ -13,9 +16,11 @@
     grid-template-columns: auto auto auto auto;
     padding: 10px;
 }
-/* .metrics{
-    width: 20%;
-} */
+.cancelSubmit{
+    display: flex;
+    justify-content: flex-end;
+    
+}
 .offset{
     padding-right: 25px;
 }
@@ -27,6 +32,8 @@
 }
 .submit, .cancel{
     width: 20%;
+    min-width: 100px;
+    margin-left: 5px
 }
 @media only screen and (max-width: 800px) {
     .metricsGrid{

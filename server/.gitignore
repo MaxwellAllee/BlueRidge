@@ -45,3 +45,6 @@ typings/
 # dotenv environment variables file
 .env
 .env.test
+
+# test photos
+/public/uploads

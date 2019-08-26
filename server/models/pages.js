@@ -15,7 +15,12 @@ module.exports = (sequelize, DataTypes) => {
       type:DataTypes.STRING,
       allowNull: false},
     blog: DataTypes.TEXT,
-
+    elevGain:{
+      type:DataTypes.STRING,
+      allowNull: false},
+      elevLoss: {
+        type:DataTypes.STRING,
+        allowNull: false}
   }, {});
   Pages.associate = function(models) {
     // associations can be defined here

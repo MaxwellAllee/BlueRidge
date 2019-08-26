@@ -1,0 +1,101 @@
+.container{
+  max-width: 1400px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.gallPhoto{
+  object-fit: cover;
+    width: 200px;
+    height: 200px;
+}
+.gallGrid {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+    display: grid;
+    margin:auto;
+    grid-template-columns: 200px 200px 200px 200px 200px 200px;
+    grid-gap: 10px;
+  }
+  
+  .gallGrid > div {
+    
+    min-width: 200px;
+    min-height: 200px;
+    text-align: center;
+    font-size: 30px;
+  }
+  
+  .focus {
+    grid-area: 1 / 1 / 3 / 3;
+  }
+  .mainPhoto{
+      max-height: 400px;
+      max-width: 400px;
+      
+  }
+  .modalPhoto{
+    max-width: 75vw;
+    max-height: 75vh
+  }
+  #switch{
+    display: flex;
+  justify-content: flex-end;
+  color: white;
+  margin-bottom: 5px;
+  }
+  .switch{
+    cursor: pointer;
+    padding-left: 5px;
+  }
+.mainPhoto:hover, .gallPhoto:hover{
+    cursor: pointer;
+  }
+@media only screen and (max-width: 1450px) {
+  .gallGrid{
+    grid-template-columns: 200px 200px 200px 200px 200px;
+  
+  }
+    
+}
+@media only screen and (max-width: 1120px) {
+  .gallGrid{
+    grid-template-columns: 200px 200px 200px 200px;
+  }
+    
+}
+@media only screen and (max-width: 900px) {
+  .gallGrid{
+    grid-template-columns: 200px 200px 200px;
+    
+  }
+    
+}
+@media only screen and (max-width: 675px) {
+  .gallGrid{
+    grid-template-columns: 200px 200px ;
+  
+  }
+    
+}
+@media only screen and (max-width: 430px) {
+  .mainPhoto{
+    max-width: 300px;
+    max-height: 300px
+  }
+  .gallGrid > div {
+    min-width: 100px;
+    min-height: 100px;
+   
+  }
+  .gallGrid{
+    grid-template-columns: 150px 150px ;
+    padding-right: 0%
+  }
+  .gallPhoto{
+    object-fit: cover;
+      width: 125px;
+      height: 125px;
+  }  
+}

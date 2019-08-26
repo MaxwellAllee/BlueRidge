@@ -3,7 +3,7 @@ import { Link, Route, Redirect } from 'react-router-dom';
 import './Nav.css';
 import AuthContext from '../../contexts/AuthContext';
 import AuthDropdown from '../../components/AuthDropdown/AuthDropdown';
-
+import API from '../../lib/API';
 import logo from './icon1.png'
 class Navigation extends Component {
   static contextType = AuthContext;
@@ -12,9 +12,16 @@ class Navigation extends Component {
     collapsed: true,
     count: 1,
     redirect: this.props.test,
-   
+    availablePages:[]
   }
-  
+  componentDidMount (){
+    API.Pages.allPages().then(res => {
+      let holder = res.data.map(pages => pages.pageName)
+      
+      this.setState({ availablePages: res.data.map(pages => pages.pageName) });
+
+  })
+  }
   toggleCollapse = () => {
     this.setState({
       collapsed: !this.state.collapsed

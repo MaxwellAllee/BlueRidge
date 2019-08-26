@@ -12,6 +12,7 @@ class PageForm extends Component {
         availablePages: ["gallery", "test1", "test2"],
         allPages: [],
         selectedPage: -1,
+        errMessage: "",
         editMode: false,
         currentPage: {},
         currentPageName: "",
@@ -20,8 +21,8 @@ class PageForm extends Component {
         currentFinishMiles: "",
         currentSection: "",
         currentBlog: "",
-        currentElevGain: "",
-        currentElevLoss: "",
+        currentElevGain: 0,
+        currentElevLoss: 0,
         duplicate: false
     };
 
@@ -37,7 +38,6 @@ class PageForm extends Component {
     }
     handleInputChange = (event) => {
         const target = event.target;
-        console.log(target)
         const value = target.type === 'checkbox' ? target.checked : target.value;
         const name = target.name;
 
@@ -48,8 +48,48 @@ class PageForm extends Component {
     sectChange = option => {
         this.setState({ currentSection: option.value })
     }
-    handleSubmit = () => {
-
+    handleSubmit = (event) => {
+        event.preventDefault()
+        let errorMessage = ""
+        const pageInfo ={
+               pageName: this.state.currentPageName,
+                startingMiles:this.state.currentStartingMiles,
+                finishMiles:this.state.currentFinishMiles,
+                section:this.state.currentSection,
+                blog:this.state.currentBlog,
+                elevGain:this.state.currentElevGain,
+                elevLoss:this.state.currentElevLoss,
+                }
+        console.log(isNaN(pageInfo.finishMiles))
+        if(pageInfo.startingMiles===""|| isNaN(pageInfo.startingMiles)){
+            errorMessage = "Check starting mileage"
+        }
+        else if(pageInfo.finishMiles===""|| isNaN(pageInfo.finishMiles)||pageInfo.finishMiles < pageInfo.startingMiles){
+            errorMessage = "Check finishing mileage"
+        }
+        else if(!pageInfo.elevGain || isNaN(pageInfo.elevGain)){
+            errorMessage = "Check Elevatin Gain"
+        }
+        else if(!pageInfo.elevLoss || isNaN(pageInfo.elevLoss)){
+            errorMessage = "Check Elevatin Loss"
+        }
+        else if (!pageInfo.blog){
+            errorMessage = "Check Notes"
+        }
+        else if (!pageInfo.section|| pageInfo.section ==="Select"){
+            errorMessage = "Check Section"
+        }
+        if(errorMessage){
+            this.setState({errMessage:errorMessage, duplicate:true})
+        }
+        else{
+            this.APIchange(pageInfo)
+        }
+    }
+    APIchange =(pageInfo)=>{
+        this.state.currentId ? (
+            API.Pages.update(pageInfo, this.state.currentId)?(this.handleCancel()): (this.setState({duplicate:true, errMessage:"Nothing Updated"}))
+            ):(API.Pages.create(pageInfo)&& this.handleCancel())
     }
     handleCancel = () => {
         this.setState(
@@ -93,7 +133,7 @@ class PageForm extends Component {
                 this.setState({ currentPageName: currentDate })
             }
             else {
-                this.setState({ duplicate: true })
+                this.setState({ duplicate: true, errMessage: "New page not created. Page already exists for this day." })
                 this._onSelect({ value: currentDate })
             }
         }
@@ -103,10 +143,7 @@ class PageForm extends Component {
 
     render() {
         const defaultOption = this.state.location
-        const pageNum = this.state.selectedPage
         const sect = ['SD', 'BR', 'SM']
-
-        console.log(pageNum)
         return (
             <div className='PageForm'>
                 <div className='jumbotron'>
@@ -114,7 +151,7 @@ class PageForm extends Component {
 
                         {this.state.editMode ? (<div>
                             <h2>{this.state.currentPageName}</h2>
-                            {this.state.duplicate && <div className="duplicate">New page not created. Page already exists for this day.</div>}
+                            {this.state.duplicate && <div className="duplicate">{this.state.errMessage}</div>}
                             <div className="metricsGrid">
                                 <label className="metrics">
                                     Starting Miles:
@@ -159,8 +196,10 @@ class PageForm extends Component {
                                     value={this.state.currentBlog}
                                     onChange={this.handleInputChange} />
                             </label>
-                            <button className="btn btn-primary btn-block cancel w-20" onClick={this.handleCancel}>Cancel</button>
-                            <button className="btn btn-primary btn-block submit w-20" onClick={this.handleSubmit}>Submit</button>
+                            <div className='cancelSubmit'>
+                            <button className="btn btn-primary cancel" onClick={this.handleCancel}>Cancel</button>
+                            <button className="btn btn-primary submit" onClick={(event)=>this.handleSubmit(event)}>Submit</button>
+                            </div>
                         </div>) : (
                                 <Dropdown id="dropDown"
                                     options={this.state.availablePages}
