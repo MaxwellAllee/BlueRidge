@@ -19,9 +19,17 @@ photosController.post('/', JWTVerifier, upload.single('file'), (req, res) => {
         });
     }
 });
-photosController.get('/',(req,res)=>{
-    db.Photos.findAll().then(photos=>{
+photosController.get('/:id',(req,res)=>{
+    console.log(req.param.id, 'lookup')
+    const pageLookUp ={}
+    if (req.params.id !== 'gallery'){
+        pageLookUp.where={location: req.params.id}
+    }
+    
+    db.Photos.findAll(pageLookUp).then(photos=>{
         res.json(photos)
+    }).catch((err)=>{
+        console.log(err)
     })
 })
 

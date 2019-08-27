@@ -8,10 +8,14 @@ class PhotoForm extends Component {
     static contextType = AuthContext;
     state = {
         location: "Select Option",
-        availablePages: ["gallery", "test1", "test2"],
+        availablePages: [],
         fileName: "",
         error: ""
     };
+    componentDidMount(){
+        API.Pages.orderedList()
+    .then(order=> this.setState({availablePages:order}))
+    }
     getFile = (filePath) => {
         return filePath.substr(filePath.lastIndexOf('\\') + 1).split('.')[0];
     }

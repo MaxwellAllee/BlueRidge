@@ -3,6 +3,8 @@ import API from '../../lib/API';
 import './Gall.css'
 import Modal from 'react-modal';
 import moment from 'moment'
+
+
 const customStyles = {
   content : {
     top                   : '50%',
@@ -20,17 +22,20 @@ class Gall extends Component {
     clickedPhoto:"",
     modal:"",
     modalIsOpen: false,
-    newest: true
+    newest: true,
+    pageLoading: '',
+    sectionPhoto: true
   };
 
   componentDidMount() {
-    API.Photos.allPhotos().then(res => {
-      console.log(res.data)
+    this.setState({pageLoading:this.props.location})
+    if(this.props.location !== 'gallery'){
+      this.setState({sectionPhoto:false})
+    }
+    
+    API.Photos.allPhotos(this.props.location).then(res => {
       let photoz = res.data
       this.setState({ photos: photoz, mainPhoto:photoz[0].photoName, clickedPhoto:photoz[0].photoName })
-      console.log(moment(photoz[0].createdAt).unix())
-      
-   
     })
   }
   hoverAction = photo => {
@@ -71,6 +76,7 @@ class Gall extends Component {
   }
   render() {
     let photos = this.state.photos
+    
     return (
       <div className='Gall'>
         
@@ -82,9 +88,9 @@ class Gall extends Component {
           contentLabel="Example Modal"
         >
           
-          <img src={`uploads/${this.state.modal}`} 
+          <img src={`/uploads/${this.state.modal}`} 
           ref={subtitle => this.subtitle = subtitle} 
-          className="modalPhoto" alt="modal photo" />
+          className="modalPhoto" alt={`Modal of ${this.state.modal}`} />
         </Modal>
         
         <div id='switch'>
@@ -94,25 +100,20 @@ class Gall extends Component {
         <div className="gallGrid">
         
         {photos.length ? (photos.map(filez => {
+          
           return (
 
-
-            <div>
-              <div>
-                <img src={`uploads/${filez.photoName}`} className="gallPhoto" 
+                <img src={`/uploads/${filez.photoName}`} className="gallPhoto" key={filez.id}
                 onMouseOver={()=>{this.hoverAction(filez.photoName)}} onMouseOut={this.switchBack} 
-                onClick={()=>{this.openModal(filez.photoName)}} alt={filez._id} />
-              </div>
-
-            </div>)
+                onClick={()=>{this.openModal(filez.photoName)}} alt={filez._id} />)
         })) : (
             <h3>No Photos!</h3>
           )}
         
           
-          <div className="focus"><img src={`uploads/${this.state.mainPhoto}`} 
+          {this.state.sectionPhoto && <div className="focus"><img src={`uploads/${this.state.mainPhoto}`} 
           onClick={()=>{this.openModal(this.state.mainPhoto)}} className="mainPhoto" 
-          alt="main photo" /></div>
+          alt={`main ${this.state.mainPhoto + Math.floor(Math.random()*10)}`} /></div>}
           
 
         </div>

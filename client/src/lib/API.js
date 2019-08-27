@@ -24,44 +24,44 @@ export default {
       });
     }
   },
- Photos:{
-    allPhotos: function(){
-    return axios.get("/api/photos")     
+  Photos: {
+    allPhotos: function (page) {
+      
+      return axios.get(`/api/photos/${page}`)
     },
-    getThePhoto: function(name){
-    return axios.get(`/api/photos/${name}`)
+    deleted: function (ids) {
+      return axios.post(`api/photos/delete/${ids}`)
     },
-    deleted: function(ids){
-        return axios.post(`api/photos/delete/${ids}`)
-    },
-    upload: function(filez,location, authToken){
-        const url = '/api/photos';
-        console.log(authToken)
-        const formData = new FormData();
-        formData.append('file',filez)
-        formData.append('location',location)
-        const config = {
-            headers: {
-              'Authorization': `Bearer ${authToken}`,
-                'content-type': 'multipart/form-data'
-                
-            }
-            
+    upload: function (filez, location, authToken) {
+      const url = '/api/photos';
+      console.log(authToken)
+      const formData = new FormData();
+      formData.append('file', filez)
+      formData.append('location', location)
+      const config = {
+        headers: {
+          'Authorization': `Bearer ${authToken}`,
+          'content-type': 'multipart/form-data'
+
         }
-       
-        return axios.post(url, formData, config)
+
+      }
+
+      return axios.post(url, formData, config)
     }
   },
-  Pages:{
-    allPages: function(){
-      
-      return axios.get("/api/pages")     
-      },
-    create: function(page){
+  Pages: {
+    allPages: function () {
+      return axios.get("/api/pages")
+    },
+    onePage: function (page) {
+      return axios.get('/api/pages/' + page)
+    },
+    create: function (page) {
       return axios.put("/api/pages", page)
     },
-    update: function(page,id){
-      return axios.post('/api/pages',{pageInfo:page,id:id})
+    update: function (page, id) {
+      return axios.post('/api/pages', { pageInfo: page, id: id })
     }
   }
 }

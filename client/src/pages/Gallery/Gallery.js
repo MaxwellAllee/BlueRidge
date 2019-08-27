@@ -9,13 +9,14 @@ class Gallery extends Component {
   state = {
     isLoading: true,
     error: "",
-    mounted:false
+    mounted:false,
+    currentPage : 'gallery'
   }
 
   render() {
     return (
       <div>
-        <Gall/>
+        <Gall location={'gallery'}/>
       </div>
     );
   }

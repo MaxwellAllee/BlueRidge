@@ -1,0 +1,12 @@
+.pageGrid{
+    margin-top: 2%;
+    display: grid;
+    grid-template-columns: 33% 66%;
+    grid-template-areas:
+    'menu main '
+    'footer footer ';
+    padding: 10px;
+}
+.galleryArea{
+    grid-area: footer
+}
