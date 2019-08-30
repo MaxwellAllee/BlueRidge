@@ -64,7 +64,7 @@ class PageForm extends Component {
         if(pageInfo.startingMiles===""|| isNaN(pageInfo.startingMiles)){
             errorMessage = "Check starting mileage"
         }
-        else if(pageInfo.finishMiles===""|| isNaN(pageInfo.finishMiles)||pageInfo.finishMiles < pageInfo.startingMiles){
+        else if(pageInfo.finishMiles===""|| isNaN(pageInfo.finishMiles)|| parseInt(pageInfo.finishMiles) < parseInt(pageInfo.startingMiles)){
             errorMessage = "Check finishing mileage"
         }
         else if(!pageInfo.elevGain || isNaN(pageInfo.elevGain)){

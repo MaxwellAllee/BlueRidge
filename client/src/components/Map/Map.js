@@ -7,8 +7,8 @@ class Map extends Component {
     isOpen: false,
     pageNames: [],
     section: 'SV',
-    startMiles: '20',
-    finishMiles: '70',
+    startMiles: '0',
+    finishMiles: '75',
     map: '',
     colors: ''
   }
@@ -17,40 +17,49 @@ class Map extends Component {
   }
   componentWillReceiveProps(nextProps) {
     if (this.props.mileage !== nextProps.mileage) {
-      this.sectionalizer('SV', parseInt(this.state.startMiles), parseInt(this.state.finishMiles))
-
+      if(this.props.mileage[0]!== NaN){
+      this.sectionalizer('SV', parseInt(this.props.mileage[0]), parseInt(this.props.mileage[1]))
+      }
     }
 
   }
   sectionalizer = (section, start, finish) => {
-
+    console.log(start, finish)
     if (section === 'SV') (this.shendoah(start, finish))
   }
   shendoah(start, finish) {
-    const sub =[0,0,0,0,0,31,23,19,]
+    const sub =[0,3,2,-0.5,-1.5,-1,31.5,23.5,19,12.5,3.5]
     let offset = 0
     let mileTotal = 0
     let mileMapStart = 0
-    let subtractor = 0
+    const subtractor = sub[Math.floor(finish/10)]
+    console.log(Math.floor(parseInt(finish)/10))
     if (finish < 55) {
 
       offset = 3.5
-
       this.setState({ map: sd1 })
       mileTotal = 56
     }
     else {
       mileMapStart =49.5
       mileTotal = 106
-      subtractor = 23
       this.setState({ map: sd2 })
 
     }
+    console.log(subtractor)
     this.percentages(offset, start, finish, mileTotal, mileMapStart, subtractor)
+  }
+  subtracter(array, mile){
+        if(mile%10){
+          const low = array[Math.floor(mile)]
+          const high = array[Math.floor(mile)+1]
+        
+        }
   }
   percentages(offset, start, finish, mileTotal, mapStart, subtractor) {
     let startPercent = 0
     let bottomPercent = 0
+    console.log(subtractor)
     if(mapStart > start) start = 0
     if (start) {
       if (offset) {
