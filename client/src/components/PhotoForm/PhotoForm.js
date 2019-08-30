@@ -13,8 +13,10 @@ class PhotoForm extends Component {
         error: ""
     };
     componentDidMount(){
-        API.Pages.orderedList()
-    .then(order=> this.setState({availablePages:order}))
+        API.Pages.sortPages()
+    .then(order=> {
+        console.log(order)
+        this.setState({availablePages:order.pageNames})})
     }
     getFile = (filePath) => {
         return filePath.substr(filePath.lastIndexOf('\\') + 1).split('.')[0];

@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import React, { Component} from 'react';
 import API from '../../lib/API';
 import './Gall.css'
 import Modal from 'react-modal';
@@ -23,19 +23,33 @@ class Gall extends Component {
     modal:"",
     modalIsOpen: false,
     newest: true,
-    pageLoading: '',
-    sectionPhoto: true
+    sectionPhoto: true,
+    present:false
   };
 
   componentDidMount() {
-    this.setState({pageLoading:this.props.location})
-    if(this.props.location !== 'gallery'){
+   this.renderPhotos(this.props.location)
+  }
+  componentWillReceiveProps(nextProps) {
+    if(this.props.location !== nextProps.location) {
+     
+      this.renderPhotos(nextProps.location)
+    }
+  }
+  renderPhotos =(location)=>{
+    if(location !== 'gallery'){
       this.setState({sectionPhoto:false})
     }
-    
-    API.Photos.allPhotos(this.props.location).then(res => {
+    API.Photos.allPhotos(location).then(res => {
       let photoz = res.data
-      this.setState({ photos: photoz, mainPhoto:photoz[0].photoName, clickedPhoto:photoz[0].photoName })
+      console.log(photoz.length)
+      if(photoz.length) {
+
+        console.log(res.data,'photos')
+      this.setState({ photos: photoz, mainPhoto:photoz[0].photoName, clickedPhoto:photoz[0].photoName, present: true })}
+      else{
+
+        this.setState({present:false})}
     })
   }
   hoverAction = photo => {
@@ -79,7 +93,7 @@ class Gall extends Component {
     
     return (
       <div className='Gall'>
-        
+        {this.state.pageLoading}
         <Modal
           isOpen={this.state.modalIsOpen}
           onAfterOpen={this.afterOpenModal}
@@ -99,7 +113,7 @@ class Gall extends Component {
         </div>
         <div className="gallGrid">
         
-        {photos.length ? (photos.map(filez => {
+        {this.state.present && photos[0].photoName ? (photos.map(filez => {
           
           return (
 

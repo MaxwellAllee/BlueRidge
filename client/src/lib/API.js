@@ -1,5 +1,5 @@
 import axios from 'axios';
-
+import moment from 'moment'
 export default {
   Users: {
     login: function (email, password) {
@@ -54,6 +54,21 @@ export default {
     allPages: function () {
       return axios.get("/api/pages")
     },
+    sortPages: function(){
+     return axios.get("/api/pages").then(pages => {
+        let holder = pages.data
+        
+        holder.sort(function (a, b) {
+          a = moment(a.pageName).unix();
+          b = moment(b.pageName).unix();
+         
+          return a > b ? -1 : a < b ? 1 : 0;
+        })
+    
+        let names =holder.map(pages => pages.pageName)
+        return {pageNames:names, availablePages:holder}
+        
+    })},
     onePage: function (page) {
       return axios.get('/api/pages/' + page)
     },

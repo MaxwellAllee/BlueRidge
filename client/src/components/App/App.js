@@ -63,6 +63,7 @@ class App extends Component {
   
   
   componentDidMount() {
+   this.rest()
     const { authToken } = this.state.auth;
     if (!authToken) return;
 
@@ -70,25 +71,25 @@ class App extends Component {
       .then(response => response.data)
       .then(user => this.setState(prevState => ({ auth: { ...prevState.auth, user } })))
       .catch(err => console.log(err));
-    // this.rest()
+    
       
   }
-  // rest =()=>{
-  //   API.Pages.allPages().then(pages => {
-  //     let holder = pages.data
+  rest =()=>{
+    API.Pages.allPages().then(pages => {
+      let holder = pages.data
       
-  //     holder.sort(function (a, b) {
-  //       a = moment(a.pageName).unix();
-  //       b = moment(b.pageName).unix();
+      holder.sort(function (a, b) {
+        a = moment(a.pageName).unix();
+        b = moment(b.pageName).unix();
        
-  //       return a > b ? -1 : a < b ? 1 : 0;
-  //     })
+        return a > b ? -1 : a < b ? 1 : 0;
+      })
   
-  //     let names =holder.map(pages => pages.pageName)
-  //     this.setState({pageNames:names, availablePages:holder})
+      let names =holder.map(pages => pages.pageName)
+      this.setState({pageNames:names, availablePages:holder})
       
-  //   })
-  // }
+    })
+  }
   render() {
     const hiddenLoad ={'backgroundImage' : `url(${nightBackground})`, 'noRepeat': '-9999px -9999px'}
     const bStyle = {'backgroundImage': `url(${this.state.background})`}

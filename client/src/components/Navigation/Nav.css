@@ -108,13 +108,48 @@ nav{
     }
 
   }
+  @media only screen and (max-width: 650px) {
+  
+    a{
+
+      padding: 0px;
+    }
+    .nav-link{
+      padding: 0px;
+    }
+    .inner-grid-item{
+      padding: 0px;
+   
+    }
+
+  
+  }
+  @media only screen and (max-width: 450px) {
+  
+    .inner-grid-item{
+      font-size: 1.25em;}
+  
+  }
   @media only screen and (max-width: 400px) {
     .loggedIn{
       height: 175px;
     }
+    a{
+
+      padding: 0px;
+    }
+    .nav-link{
+      padding: 0px;
+    }
     .inner-grid-item{
-      font-size: 1.25em;
-      padding: 5px;
+      font-size: 1em;
+      padding: 0px;
+
     }
 
+  }
+  @media only screen and (max-width: 350px) {
+    .inner-grid-item{
+      font-size: .75em;
+    }
   }

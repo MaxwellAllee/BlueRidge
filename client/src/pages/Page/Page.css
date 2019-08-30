@@ -1,5 +1,5 @@
 .pageGrid{
-    margin-top: 2%;
+    margin: 2%;
     display: grid;
     grid-template-columns: 33% 66%;
     grid-template-areas:
@@ -10,3 +10,18 @@
 .galleryArea{
     grid-area: footer
 }
+@media only screen and (max-width: 500px) {
+    .pageGrid{
+      font-size: .75em;
+      grid-template-columns:100%;
+      grid-template-areas:
+    'menu '
+    'main '
+    'footer';
+    }
+  }
+  @media only screen and (max-width: 350px) {
+    .pageGrid{
+    padding: 0px;
+    }
+  }

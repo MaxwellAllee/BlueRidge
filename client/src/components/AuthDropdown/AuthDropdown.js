@@ -4,7 +4,7 @@ import Gravatar from 'react-gravatar';
 
 import AuthContext from '../../contexts/AuthContext';
 
-class AuthDropdown extends Component {
+class Archive extends Component {
   static contextType = AuthContext;
 
   state = {
@@ -45,4 +45,4 @@ class AuthDropdown extends Component {
   }
 }
 
-export default AuthDropdown;
+export default Archive;
