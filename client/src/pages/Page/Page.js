@@ -37,7 +37,7 @@ class Page extends Component {
       <div className='Page'>
         
         <div className='pageGrid'>
-          <div><Map mileage={[this.state.pageInfo.startingMiles,this.state.pageInfo.finishMiles]}/></div>
+          <div><Map mileage={[this.state.pageInfo.startingMiles, this.state.pageInfo.finishMiles, this.state.pageInfo.section]}/></div>
           <div><TextBox text={this.state.blog} /></div>
           <div className='galleryArea'>
             <Gall location={this.props.location.pathname.split('/')[2]}/>
