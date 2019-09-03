@@ -18,6 +18,9 @@ import './App.css';
 // import { animationFrameScheduler } from 'rxjs';
 import globalBackground from './backgroundImage/background.jpg'
 import nightBackground from './backgroundImage/night1.jpg'
+import map1 from '../Map/maps/br1.png'
+import map2 from '../Map/maps/SD1.png'
+import map3 from '../Map/maps/SD2.png'
 class App extends Component {
   
   constructor(props) {
@@ -79,7 +82,7 @@ class App extends Component {
       let holder = pages.data
       
       holder.sort(function (a, b) {
-        a = moment(a.pageName).unix();
+        a = moment(a.pageName).unix();const hiddenLoad ={'backgroundImage' : `url(${nightBackground})`, 'noRepeat': '-9999px -9999px'}
         b = moment(b.pageName).unix();
        
         return a > b ? -1 : a < b ? 1 : 0;
@@ -92,6 +95,10 @@ class App extends Component {
   }
   render() {
     const hiddenLoad ={'backgroundImage' : `url(${nightBackground})`, 'noRepeat': '-9999px -9999px'}
+    const hiddenLoad1 ={'backgroundImage' : `url(${map1})`, 'noRepeat': '-9999px -9999px'}
+    const hiddenLoad2 ={'backgroundImage' : `url(${map2})`, 'noRepeat': '-9999px -9999px'}
+    const hiddenLoad3 ={'backgroundImage' : `url(${map3})`, 'noRepeat': '-9999px -9999px'}
+    
     const bStyle = {'backgroundImage': `url(${this.state.background})`}
     return (
       <AuthContext.Provider value={this.state.auth}>
@@ -111,6 +118,9 @@ class App extends Component {
             </Switch>
           </div>
           <div style={hiddenLoad}></div>
+          <div style={hiddenLoad1}></div>
+          <div style={hiddenLoad2}></div>
+          <div style={hiddenLoad3}></div>
         </div>
       </AuthContext.Provider>
     );

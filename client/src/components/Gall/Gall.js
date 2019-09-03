@@ -3,9 +3,10 @@ import API from '../../lib/API';
 import './Gall.css'
 import Modal from 'react-modal';
 import moment from 'moment'
-
+import AuthContext from '../../contexts/AuthContext';
 
 const customStyles = {
+  
   content : {
     top                   : '50%',
     left                  : '50%',
@@ -16,6 +17,7 @@ const customStyles = {
   }
 };
 class Gall extends Component {
+  static contextType = AuthContext;
   state = {
     photos: {},
     mainPhoto: "",
@@ -40,17 +42,24 @@ class Gall extends Component {
     if(location !== 'gallery'){
       this.setState({sectionPhoto:false})
     }
+
     API.Photos.allPhotos(location).then(res => {
       let photoz = res.data
-      console.log(photoz.length)
+
       if(photoz.length) {
 
-        console.log(res.data,'photos')
       this.setState({ photos: photoz, mainPhoto:photoz[0].photoName, clickedPhoto:photoz[0].photoName, present: true })}
       else{
 
         this.setState({present:false})}
     })
+  }
+  handleDelete(id){
+
+    API.Photos.deleted(this.context.authToken, id).then(results=>{
+      results && this.renderPhotos(this.props.location)
+    }
+    )
   }
   hoverAction = photo => {
     this.setState({mainPhoto:photo})
@@ -79,9 +88,7 @@ class Gall extends Component {
   }
   sort = ()=>{
     let holder = this.state.photos
-    console.log(holder)
       holder.sort(function(a, b) {
-       console.log(moment(a.createdAt).unix())
         a = moment(a.createdAt).unix();
         b = moment(a.createdAt).unix();
         return a<b ? -1 : a>b ? 1 : 0;
@@ -90,7 +97,7 @@ class Gall extends Component {
   }
   render() {
     let photos = this.state.photos
-    
+    const { user } = this.context;
     return (
       <div className='Gall'>
         {this.state.pageLoading}
@@ -99,7 +106,7 @@ class Gall extends Component {
           onAfterOpen={this.afterOpenModal}
           onRequestClose={this.closeModal}
           style={customStyles}
-          contentLabel="Example Modal"
+          contentLabel=" Modal"
         >
           
           <img src={`/uploads/${this.state.modal}`} 
@@ -116,10 +123,13 @@ class Gall extends Component {
         {this.state.present && photos[0].photoName ? (photos.map(filez => {
           
           return (
-
-                <img src={`/uploads/${filez.photoName}`} className="gallPhoto" key={filez.id}
+                <div key={filez.id}>
+                <img src={`/uploads/${filez.photoName}`} className="gallPhoto" 
                 onMouseOver={()=>{this.hoverAction(filez.photoName)}} onMouseOut={this.switchBack} 
-                onClick={()=>{this.openModal(filez.photoName)}} alt={filez._id} />)
+                onClick={()=>{this.openModal(filez.photoName)}} alt={filez._id} />
+                {user && <button type="button" className="btn btn-danger" onClick={()=>{this.handleDelete(filez.id)}}>Delete</button>}
+                </div>
+                )
         })) : (
             <h3>No Photos!</h3>
           )}

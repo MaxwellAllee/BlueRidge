@@ -20,7 +20,12 @@ module.exports = (sequelize, DataTypes) => {
       allowNull: false},
       elevLoss: {
         type:DataTypes.STRING,
-        allowNull: false}
+        allowNull: false},
+        public:  {
+          type:DataTypes.BOOLEAN, 
+          allowNull: false, 
+          defaultValue: false}
+ 
   }, {});
   Pages.associate = function(models) {
     // associations can be defined here

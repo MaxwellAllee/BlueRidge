@@ -11,33 +11,44 @@ class Page extends Component {
     pageName:'',
     blog:"",
     count:0,
-    update:false
+    update:false,
+    start: 0,
+    finish: 0
   }
   componentDidMount(){
+    console.log('mounted')
     this.fetchPage(this.props.location.pathname.split('/')[2],)
 
   };
   componentWillReceiveProps(nextProps) {
     if(this.props.location !== nextProps.location) {
+      console.log('refreshed')
       this.fetchPage(nextProps.location.pathname.split('/')[2],)
     }
   }
   fetchPage=(page)=>{
     API.Pages.onePage(page).then((results)=>{
-      
-      this.setState({pageInfo:results.data, blog: results.data.blog, update: true})
+      this.setState({
+        pageInfo:results.data, 
+        blog: results.data.blog, 
+        update: true,
+        start: results.data.startingMiles,
+        finish: results.data.finishMiles,
+        section: results.data.section
+      })
      
     })
   }
   render() {
-
-
- 
+    const finish = this.state.finish
+    const start = this.state.start
+    const sect = this.state.section
     return (
+
       <div className='Page'>
         
         <div className='pageGrid'>
-          <div><Map mileage={[this.state.pageInfo.startingMiles, this.state.pageInfo.finishMiles, this.state.pageInfo.section]}/></div>
+          <div><Map mileage={{start, finish, sect}}/></div>
           <div><TextBox text={this.state.blog} /></div>
           <div className='galleryArea'>
             <Gall location={this.props.location.pathname.split('/')[2]}/>

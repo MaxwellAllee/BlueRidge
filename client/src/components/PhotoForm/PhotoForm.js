@@ -4,6 +4,7 @@ import AuthContext from '../../contexts/AuthContext';
 import API from '../../lib/API';
 import 'react-dropdown/style.css'
 import './PhotoForm.css'
+import Gall from '../Gall/Gall'
 class PhotoForm extends Component {
     static contextType = AuthContext;
     state = {
@@ -13,10 +14,15 @@ class PhotoForm extends Component {
         error: ""
     };
     componentDidMount(){
-        API.Pages.sortPages()
-    .then(order=> {
-        console.log(order)
-        this.setState({availablePages:order.pageNames})})
+
+        API.Pages.sortPagesAuth(this.context.authToken).then(res =>{
+            console.log(res.data)
+            this.setState({ allPages: res.data })
+            let availPages = res.data.map(pages => pages.pageName)
+            availPages.unshift("Gallery")
+            this.setState({ availablePages: availPages });
+        })
+    
     }
     getFile = (filePath) => {
         return filePath.substr(filePath.lastIndexOf('\\') + 1).split('.')[0];
@@ -79,6 +85,7 @@ class PhotoForm extends Component {
                         </form>
                     </div>
                 </div>
+                <Gall location={'edit'} />
             </div>
         )
     }

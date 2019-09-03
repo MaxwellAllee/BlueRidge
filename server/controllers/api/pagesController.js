@@ -5,6 +5,18 @@ const db = require('../../models');
 
 pagesController.get('/',(req, res) => {
   
+  db.Pages.findAll({
+    where: {
+      public :true
+    }
+  })
+    .then(pages => {
+      
+      res.json(pages)})
+    .catch(err => console.log(err));
+});
+pagesController.get('/auth', JWTVerifier,(req, res) => {
+
   db.Pages.findAll()
     .then(pages => {
       
