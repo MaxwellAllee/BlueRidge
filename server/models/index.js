@@ -3,6 +3,7 @@
 const fs = require('fs');
 const path = require('path');
 const Sequelize = require('sequelize');
+const mysql2 = 'mysql2'; 
 const basename = path.basename(__filename);
 const env = process.env.NODE_ENV || 'development';
 let config ={}
@@ -14,7 +15,7 @@ if(process.env.LOCAL){
     "database": process.env.DB,
     "host": process.env.HOST,
     "dialect": "mysql",
-    'dialectModule': 'mysql2',
+    'dialectModule': mysql2,
     "operatorsAliases": false}
 }else{
   console.log("foreign")
