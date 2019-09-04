@@ -14,6 +14,7 @@ if(process.env.LOCAL){
     "database": process.env.DB,
     "host": process.env.HOST,
     "dialect": "mysql",
+    'dialectModule': 'mysql2',
     "operatorsAliases": false}
 }else{
   console.log("foreign")
