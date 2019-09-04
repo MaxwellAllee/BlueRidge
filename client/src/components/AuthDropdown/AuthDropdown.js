@@ -4,7 +4,7 @@ import Gravatar from 'react-gravatar';
 
 import AuthContext from '../../contexts/AuthContext';
 
-class AuthDropdown extends Component {
+class Archive extends Component {
   static contextType = AuthContext;
 
   state = {
@@ -36,8 +36,8 @@ class AuthDropdown extends Component {
 
         </button>
         <div className={dropdownMenuClass} aria-labelledby="navbarDropdown">
-        <Link className='dropdown-item' to='/addpage' onClick={this.toggleOpen}>Add A Page</Link>
-          <Link className='dropdown-item' to='/addphoto' onClick={this.toggleOpen}>Add Photos</Link>
+        <Link className='dropdown-item' to='/addpage' onClick={this.toggleOpen}> Edit Page</Link>
+          <Link className='dropdown-item' to='/addphoto' onClick={this.toggleOpen}>Edit Photos</Link>
           <div className="dropdown-item" onClick={this.handleLogout}>Logout</div>
         </div>
       </div>
@@ -45,4 +45,4 @@ class AuthDropdown extends Component {
   }
 }
 
-export default AuthDropdown;
+export default Archive;

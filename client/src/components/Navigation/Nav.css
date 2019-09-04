@@ -2,14 +2,14 @@
 nav{
     background-image: url('navImage.png');
     background-position: left bottom;
-    max-width: 100vw;
+    max-width: 100%;
     height: 175px;
    
     background-size: cover; 
     
 }
 .grid-container {
-    width:100vw;
+    width:100%;
     display: grid;
     grid-template-columns: 25% 50% auto;
     height: 100%;
@@ -42,7 +42,11 @@ nav{
     display: grid;
     grid-template-columns: 15% 70% 15%;
     margin-top: 4%
-  }
+  }.metricsGrid{
+    display: grid;
+    grid-template-columns: auto auto auto auto;
+    padding: 10px;
+}
   .text-area{
     background-color: rgb(255,255,255,.6);
     padding:2%;
@@ -66,7 +70,7 @@ nav{
  .whiteOut{
   border-radius: 0px 0px 30px 30px;
  }
- .loggedIn{
+ #loggedIn{
   height: 255px;
 }
   @media only screen and (max-width: 1000px) {
@@ -74,7 +78,7 @@ nav{
       grid-template-columns: 0% 100% 0%;
       padding-right: 4%
     }
-    .loggedIn{
+    #loggedIn{
       height: 230px;
     }
     #guy{
@@ -92,7 +96,7 @@ nav{
   }
 
   @media only screen and (max-width: 700px) {
-    .loggedIn{
+    #loggedIn{
       height: 209px;
     }
     nav{
@@ -104,13 +108,48 @@ nav{
     }
 
   }
-  @media only screen and (max-width: 400px) {
-    .loggedIn{
-      height: 175px;
+  @media only screen and (max-width: 650px) {
+  
+    a{
+
+      padding: 0px;
+    }
+    .nav-link{
+      padding: 0px;
     }
     .inner-grid-item{
-      font-size: 1.25em;
-      padding: 5px;
+      padding: 0px;
+   
     }
 
+  
+  }
+  @media only screen and (max-width: 450px) {
+  
+    .inner-grid-item{
+      font-size: 1.25em;}
+  
+  }
+  @media only screen and (max-width: 400px) {
+    #loggedIn{
+      height: 175px;
+    }
+    a{
+
+      padding: 0px;
+    }
+    .nav-link{
+      padding: 0px;
+    }
+    .inner-grid-item{
+      font-size: 1em;
+      padding: 0px;
+
+    }
+
+  }
+  @media only screen and (max-width: 350px) {
+    .inner-grid-item{
+      font-size: .75em;
+    }
   }

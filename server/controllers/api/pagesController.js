@@ -5,10 +5,30 @@ const db = require('../../models');
 
 pagesController.get('/',(req, res) => {
   
+  db.Pages.findAll({
+    where: {
+      public :true
+    }
+  })
+    .then(pages => {
+      
+      res.json(pages)})
+    .catch(err => console.log(err));
+});
+pagesController.get('/auth', JWTVerifier,(req, res) => {
+
   db.Pages.findAll()
     .then(pages => {
       
       res.json(pages)})
+    .catch(err => console.log(err));
+});
+pagesController.get('/:id',(req, res) => {
+  console.log(req.params.id, "this is ID")
+   db.Pages.findOne({where:{pageName:req.params.id, public:true}})
+    .then(page => {
+      res.json(page)
+    })
     .catch(err => console.log(err));
 });
 pagesController.post('/',(req, res) => {
@@ -25,7 +45,7 @@ pagesController.put('/',(req, res) => {
   db.Pages.create(req.body)
     .then(results => {
       console.log(results)
-      res.json(results.dataValues)
+      res.json(results)
       })
     .catch(err => console.log(err));
 });

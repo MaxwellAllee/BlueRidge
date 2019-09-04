@@ -4,8 +4,7 @@ import './Nav.css';
 import AuthContext from '../../contexts/AuthContext';
 import AuthDropdown from '../../components/AuthDropdown/AuthDropdown';
 import logo from './icon1.png'
-import API from '../../lib/API';
-import Archive from '../Archive/Archive'
+
 
 class Navigation extends Component {
   static contextType = AuthContext;
@@ -14,14 +13,10 @@ class Navigation extends Component {
     collapsed: true,
     count: 1,
     redirect: this.props.test,
-    pageNames:[],
-    latestPage:''
+    pageNames:this.props.pageNames
   }
-  componentDidMount(){
-    API.Pages.sortPages().then((results)=>{
-      this.setState({availablePages:results.availablePages, pageNames:results.pageNames,latestPage : results.pageNames[0]})
-    })
-    
+  componentWillReceiveProps(){
+
   }
   toggleCollapse = () => {
     this.setState({
@@ -45,9 +40,8 @@ class Navigation extends Component {
 
   }
   render() {
-    
     const { user } = this.context;
-    let latest = '/page/'+this.state.latestPage
+    const latest = '/page/'+this.props.pageNames[0]
     return (
       <div className='Navigation'>
 
@@ -57,7 +51,7 @@ class Navigation extends Component {
 
           ) : (null)
         )} />
-        <nav className='navbar navbar-expand-lg mb-3' id={user && 'loggedIn'} >
+        <nav className='navbar navbar-expand-lg mb-3' className={user && 'loggedIn'} >
           <div className="grid-container">
             <div className="grid-item"></div>
             <div className="grid-item placement">
@@ -66,7 +60,7 @@ class Navigation extends Component {
                 <div className="inner-grid-item"><Link className='nav-link' to='/gallery'>Gallery</Link></div>
                 <div className="inner-grid-item"><img src={logo} alt="icon" className="icon" onClick={this.login} /></div>
                 <div className="inner-grid-item"><Link className='nav-link' to={latest}>Latest Page</Link></div>
-                <div className="inner-grid-item"><Archive {...this.state}/></div>
+                <div className="inner-grid-item"><a href="http://google.com">Archive</a></div>
               </div>
               {user &&
                 <div className="inner-grid-item linkColor"><AuthDropdown onClick={this.toggleCollapse} /></div>}

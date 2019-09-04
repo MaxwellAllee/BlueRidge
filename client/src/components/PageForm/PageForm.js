@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import Dropdown from 'react-dropdown'
 import moment from 'moment'
-import AuthContext from '../../contexts/AuthContext';
+import AuthContext from '../../contexts/AuthContext'
 import API from '../../lib/API';
 import 'react-dropdown/style.css'
 import './pageForm.css'
@@ -9,7 +9,7 @@ class PageForm extends Component {
     static contextType = AuthContext;
     state = {
         location: "Select",
-        availablePages: ["gallery", "test1", "test2"],
+        availablePages: ["gallery"],
         allPages: [],
         selectedPage: -1,
         errMessage: "",
@@ -23,17 +23,19 @@ class PageForm extends Component {
         currentBlog: "",
         currentElevGain: 0,
         currentElevLoss: 0,
+        total:0,
+        grtotal:0,
+        public : false,
         duplicate: false
     };
 
-    componentDidMount () {
-        API.Pages.allPages().then(res => {
+    componentDidMount() {
+        API.Pages.sortPagesAuth(this.context.authToken).then(res =>{
             console.log(res.data)
             this.setState({ allPages: res.data })
             let availPages = res.data.map(pages => pages.pageName)
             availPages.unshift("New Page")
             this.setState({ availablePages: availPages });
-
         })
     }
     handleInputChange = (event) => {
@@ -51,45 +53,48 @@ class PageForm extends Component {
     handleSubmit = (event) => {
         event.preventDefault()
         let errorMessage = ""
-        const pageInfo ={
-               pageName: this.state.currentPageName,
-                startingMiles:this.state.currentStartingMiles,
-                finishMiles:this.state.currentFinishMiles,
-                section:this.state.currentSection,
-                blog:this.state.currentBlog,
-                elevGain:this.state.currentElevGain,
-                elevLoss:this.state.currentElevLoss,
-                }
+        const pageInfo = {
+            pageName: this.state.currentPageName,
+            startingMiles: this.state.currentStartingMiles,
+            finishMiles: this.state.currentFinishMiles,
+            section: this.state.currentSection,
+            blog: this.state.currentBlog,
+            elevGain: this.state.currentElevGain,
+            elevLoss: this.state.currentElevLoss,
+            public: this.state.public,
+            total: this.state.total,
+            grtotal: this.state.grtotal
+        }
         console.log(isNaN(pageInfo.finishMiles))
-        if(pageInfo.startingMiles===""|| isNaN(pageInfo.startingMiles)){
+        if (pageInfo.startingMiles === "" || isNaN(pageInfo.startingMiles)) {
             errorMessage = "Check starting mileage"
         }
-        else if(pageInfo.finishMiles===""|| isNaN(pageInfo.finishMiles)||pageInfo.finishMiles < pageInfo.startingMiles){
+        else if (pageInfo.finishMiles === "" || isNaN(pageInfo.finishMiles) || parseInt(pageInfo.finishMiles) < parseInt(pageInfo.startingMiles)) {
             errorMessage = "Check finishing mileage"
         }
-        else if(!pageInfo.elevGain || isNaN(pageInfo.elevGain)){
+        else if (!pageInfo.elevGain || isNaN(pageInfo.elevGain)) {
             errorMessage = "Check Elevatin Gain"
         }
-        else if(!pageInfo.elevLoss || isNaN(pageInfo.elevLoss)){
+        else if (!pageInfo.elevLoss || isNaN(pageInfo.elevLoss)) {
             errorMessage = "Check Elevatin Loss"
         }
-        else if (!pageInfo.blog){
+        else if (!pageInfo.blog) {
             errorMessage = "Check Notes"
         }
-        else if (!pageInfo.section|| pageInfo.section ==="Select"){
+        else if (!pageInfo.section || pageInfo.section === "Select") {
             errorMessage = "Check Section"
         }
-        if(errorMessage){
-            this.setState({errMessage:errorMessage, duplicate:true})
+        if (errorMessage) {
+            this.setState({ errMessage: errorMessage, duplicate: true })
         }
-        else{
+        else {
             this.APIchange(pageInfo)
         }
     }
-    APIchange =(pageInfo)=>{
+    APIchange = (pageInfo) => {
         this.state.currentId ? (
-            API.Pages.update(pageInfo, this.state.currentId)?(this.handleCancel()): (this.setState({duplicate:true, errMessage:"Nothing Updated"}))
-            ):(API.Pages.create(pageInfo)&& this.handleCancel())
+            API.Pages.update(pageInfo, this.state.currentId) ? (this.handleCancel()) : (this.setState({ duplicate: true, errMessage: "Nothing Updated" }))
+        ) : (API.Pages.create(pageInfo) && this.handleCancel())
     }
     handleCancel = () => {
         this.setState(
@@ -124,7 +129,10 @@ class PageForm extends Component {
                 currentSection: this.state.allPages[selected - 1].section,
                 currentBlog: this.state.allPages[selected - 1].blog,
                 currentElevGain: this.state.allPages[selected - 1].elevGain,
-                currentElevLoss: this.state.allPages[selected - 1].elevLoss
+                currentElevLoss: this.state.allPages[selected - 1].elevLoss,
+                public: this.state.allPages[selected - 1].public,
+                total: this.state.allPages[selected -1].total,
+                grtotal: this.state.allPages[selected -1].grtotal,
             })
         }
         else {
@@ -177,34 +185,58 @@ class PageForm extends Component {
                                         value={this.state.currentElevLoss}
                                         onChange={this.handleInputChange} />
                                 </label>
+                                <label className="metrics">
+                                    Todays Total:
+                                <input name="total" className="form-control mileage" type="number"
+                                        value={this.state.total}
+                                        onChange={this.handleInputChange} />
+                                </label><label className="metrics">
+                                    To Date Total:
+                                <input name="grtotal" className="form-control mileage" type="number"
+                                        value={this.state.grtotal}
+                                        onChange={this.handleInputChange} />
+                                </label>
+                                
                             </div>
-                            <br />
                             <label ><div className="offset">
                                 Section:</div>
                                 <Dropdown id="dropDown"
                                     type='text'
+                                    
                                     options={sect}
                                     className="sectionDrop"
                                     onChange={this.sectChange}
                                     value={!this.state.selected ? this.state.currentSection : defaultOption} />
                             </label>
-                            <br />
-                            <label className="blog">
-                                <div>Notes:</div>
-                                <textarea name="currentBlog"
-                                    className="form-control, boxStyle" type="text"
-                                    value={this.state.currentBlog}
-                                    onChange={this.handleInputChange} />
-                            </label>
-                            <div className='cancelSubmit'>
-                            <button className="btn btn-primary cancel" onClick={this.handleCancel}>Cancel</button>
-                            <button className="btn btn-primary submit" onClick={(event)=>this.handleSubmit(event)}>Submit</button>
+                            <div className="custom-control custom-switch">
+                                <input type="checkbox" 
+                                name='public'
+                                className="custom-control-input" 
+                                id="customSwitch1"
+                                checked={this.state.public}
+                                onChange={this.handleInputChange}
+                                />
+                                    <label className="custom-control-label" htmlFor="customSwitch1">
+                                        
+                                    Publish</label>
                             </div>
-                        </div>) : (
+                                <br />
+                                <label className="blog">
+                                    <div>Notes:</div>
+                                    <textarea name="currentBlog"
+                                        className="form-control, boxStyle" type="text"
+                                        value={this.state.currentBlog}
+                                        onChange={this.handleInputChange} />
+                                </label>
+                                <div className='cancelSubmit'>
+                                    <button className="btn btn-primary cancel" onClick={this.handleCancel}>Cancel</button>
+                                    <button className="btn btn-primary submit" onClick={(event) => this.handleSubmit(event)}>Submit</button>
+                                </div>
+                            </div>) : (
                                 <Dropdown id="dropDown"
-                                    options={this.state.availablePages}
-                                    onChange={this._onSelect}
-                                    value={defaultOption} />
+                                options={this.state.availablePages}
+                                onChange={this._onSelect}
+                                value={defaultOption} />
 
                             )}
 
@@ -212,9 +244,9 @@ class PageForm extends Component {
 
                 </div>
             </div>
-        )
-    }
-}
-
-export default PageForm;
-
+                    )
+                }
+            }
+            
+            export default PageForm;
+            

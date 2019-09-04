@@ -1,0 +1,19 @@
+.statGrid{
+display: grid;
+  grid-template-columns: auto auto;
+  text-align: left;
+}
+.element{
+    margin-top: 20px;
+    margin-left:10%
+}
+.Stats{
+    font-size: 1.35em
+}
+.head{
+    font-size: 1.6em
+}
+.sect{
+    margin-left: 5%;
+    grid-column: 1 /span 2;
+}
