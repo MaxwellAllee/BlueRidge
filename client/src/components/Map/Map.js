@@ -26,7 +26,8 @@ class Map extends Component {
   }
   sectionalizer = (section, start, finish) => {
 
-  section === "SD" ? (this.shendoah(start, finish)):(section === 'BR'?(this.blueRidge(start, finish)):(console.log('')))
+  section === "SD" ? (this.shendoah(start, finish)):(section === 'BR'?
+  (this.blueRidge(start, finish)):(section === 'SM'? this.setState({ map: 'sm' }):(console.log('other'))))
   
   }
   shendoah(start, finish) {

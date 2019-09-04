@@ -22,7 +22,6 @@ export default {
   },
   Photos: {
     allPhotos: function (page) {
-      console.log(page, '??????')
       return axios.get(`/api/photos/${page}`)
     },
 
@@ -42,7 +41,7 @@ export default {
   },
   upload: function (filez, location, authToken) {
     const url = '/api/photos';
-    console.log(authToken)
+
     const formData = new FormData();
     formData.append('file', filez)
     formData.append('location', location)

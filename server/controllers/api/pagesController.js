@@ -25,7 +25,7 @@ pagesController.get('/auth', JWTVerifier,(req, res) => {
 });
 pagesController.get('/:id',(req, res) => {
   console.log(req.params.id, "this is ID")
-   db.Pages.findOne({where:{pageName:req.params.id}})
+   db.Pages.findOne({where:{pageName:req.params.id, public:true}})
     .then(page => {
       res.json(page)
     })

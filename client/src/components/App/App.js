@@ -15,7 +15,6 @@ import Gallery from '../../pages/Gallery/Gallery'
 import addPage from '../../pages/addPage/addPage'
 import Page from '../../pages/Page/Page'
 import './App.css';
-// import { animationFrameScheduler } from 'rxjs';
 import globalBackground from './backgroundImage/background.jpg'
 import nightBackground from './backgroundImage/night1.jpg'
 import map1 from '../Map/maps/br1.png'
@@ -82,7 +81,7 @@ class App extends Component {
       let holder = pages.data
       
       holder.sort(function (a, b) {
-        a = moment(a.pageName).unix();const hiddenLoad ={'backgroundImage' : `url(${nightBackground})`, 'noRepeat': '-9999px -9999px'}
+        a = moment(a.pageName).unix();
         b = moment(b.pageName).unix();
        
         return a > b ? -1 : a < b ? 1 : 0;

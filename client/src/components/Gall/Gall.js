@@ -32,12 +32,12 @@ class Gall extends Component {
   componentDidMount() {
    this.renderPhotos(this.props.location)
   }
-  componentWillReceiveProps(nextProps) {
-    if(this.props.location !== nextProps.location) {
+  // componentWillReceiveProps(nextProps) {
+  //   if(this.props.location !== nextProps.location) {
      
-      this.renderPhotos(nextProps.location)
-    }
-  }
+  //     this.renderPhotos(nextProps.location)
+  //   }
+  // }
   renderPhotos =(location)=>{
     if(location !== 'gallery'){
       this.setState({sectionPhoto:false})
@@ -100,6 +100,8 @@ class Gall extends Component {
     const { user } = this.context;
     return (
       <div className='Gall'>
+        {this.state.present && photos[0].photoName ?(
+          <div>
         {this.state.pageLoading}
         <Modal
           isOpen={this.state.modalIsOpen}
@@ -140,10 +142,12 @@ class Gall extends Component {
           alt={`main ${this.state.mainPhoto + Math.floor(Math.random()*10)}`} /></div>}
           
 
+        </div></div>):
+        (<div></div>)
+      
+        }
         </div>
-      </div>
-    )
-  }
+    )}
 }
 
 export default Gall;

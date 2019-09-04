@@ -1,25 +1,18 @@
-import React, { Component } from 'react';
+import React from "react";
 import './TextBox.css'
-class TextBox extends Component {
-  state = {
-    text: ""
-  };
-
-
-  render() {
+function TextBox(props){
 
     return (
       <div className='TextBox'>
         <div className='jumbotron'>
-          <h2>Notes for the day:</h2>
+          <h2>Notes for {props.name}:</h2>
           <div className='content'>
-            {this.props.text}
+            {props.text}
           </div>
 
         </div>
       </div>
     )
   }
-}
 
 export default TextBox;

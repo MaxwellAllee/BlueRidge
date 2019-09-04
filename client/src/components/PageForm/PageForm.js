@@ -23,6 +23,8 @@ class PageForm extends Component {
         currentBlog: "",
         currentElevGain: 0,
         currentElevLoss: 0,
+        total:0,
+        grtotal:0,
         public : false,
         duplicate: false
     };
@@ -59,7 +61,9 @@ class PageForm extends Component {
             blog: this.state.currentBlog,
             elevGain: this.state.currentElevGain,
             elevLoss: this.state.currentElevLoss,
-            public: this.state.public
+            public: this.state.public,
+            total: this.state.total,
+            grtotal: this.state.grtotal
         }
         console.log(isNaN(pageInfo.finishMiles))
         if (pageInfo.startingMiles === "" || isNaN(pageInfo.startingMiles)) {
@@ -125,7 +129,10 @@ class PageForm extends Component {
                 currentSection: this.state.allPages[selected - 1].section,
                 currentBlog: this.state.allPages[selected - 1].blog,
                 currentElevGain: this.state.allPages[selected - 1].elevGain,
-                currentElevLoss: this.state.allPages[selected - 1].elevLoss
+                currentElevLoss: this.state.allPages[selected - 1].elevLoss,
+                public: this.state.allPages[selected - 1].public,
+                total: this.state.allPages[selected -1].total,
+                grtotal: this.state.allPages[selected -1].grtotal,
             })
         }
         else {
@@ -178,6 +185,18 @@ class PageForm extends Component {
                                         value={this.state.currentElevLoss}
                                         onChange={this.handleInputChange} />
                                 </label>
+                                <label className="metrics">
+                                    Todays Total:
+                                <input name="total" className="form-control mileage" type="number"
+                                        value={this.state.total}
+                                        onChange={this.handleInputChange} />
+                                </label><label className="metrics">
+                                    To Date Total:
+                                <input name="grtotal" className="form-control mileage" type="number"
+                                        value={this.state.grtotal}
+                                        onChange={this.handleInputChange} />
+                                </label>
+                                
                             </div>
                             <label ><div className="offset">
                                 Section:</div>
