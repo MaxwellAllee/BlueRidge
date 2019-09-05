@@ -84,17 +84,18 @@ class Map extends Component {
    
     let startPercent = 0
     let bottomPercent = 0
-
+    start-= mapStart
     finish -= mapStart
     mileTotal -= mapStart
-    if(mapStart > start) start = 0
+    console.log(start, mileTotal, finish, mapStart)
+    if(start<0) start = 0
     if (start) {
       if (offset) {
         startPercent = (100 - offset) * (start / mileTotal) + offset - subtractorBegining
       }
       else {
-    
-        startPercent = start / mileTotal*100 - subtractorBegining
+       
+        startPercent = start / mileTotal*100// - subtractorBegining
       }
     }
     if (offset) {
