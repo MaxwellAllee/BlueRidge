@@ -2,7 +2,7 @@ keys ={
     "type": "service_account",
     "project_id": process.env.G_NAME,
     "private_key_id": process.env.G_keyId,
-    "private_key": process.env.G_privateKey,
+    "private_key": process.env.G_privateKey.replace(/\\n/g, '\n'),
     "client_email": process.env.G_email,
     "client_id": process.env.G_clientId,
     "auth_uri": process.env.G_authUri,
