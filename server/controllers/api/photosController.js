@@ -26,12 +26,13 @@ photosController.post('/', JWTVerifier, upload.single('file'), (req, res) => {
     } else {
         console.log('file received');
         bucket.upload(`./server/uploads/${req.file.filename}`, function(err, file, apiResponse) {
-            console.log(err, file, apiResponse)
+            if(err)console.log(err)
+            db.Photos.create({ photoName: req.file.filename, location: req.body.location }).then(results => {
+                message = "Successfully! uploaded";
+                res.sendStatus(200)
+            })
         });
-        db.Photos.create({ photoName: req.file.filename, location: req.body.location }).then(results => {
-            message = "Successfully! uploaded";
-            res.sendStatus(200)
-        });
+        
     }
 });
 photosController.get('/:id', (req, res) => {

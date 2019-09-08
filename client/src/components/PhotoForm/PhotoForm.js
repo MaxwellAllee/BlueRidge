@@ -5,24 +5,26 @@ import API from '../../lib/API';
 import 'react-dropdown/style.css'
 import './PhotoForm.css'
 import Gall from '../Gall/Gall'
+import uploadGif from './upload.gif'
 class PhotoForm extends Component {
     static contextType = AuthContext;
     state = {
         location: "Select Option",
         availablePages: [],
         fileName: "",
-        error: ""
+        error: "",
+        uploading:false
     };
-    componentDidMount(){
+    componentDidMount() {
 
-        API.Pages.sortPagesAuth(this.context.authToken).then(res =>{
+        API.Pages.sortPagesAuth(this.context.authToken).then(res => {
             console.log(res.data)
             this.setState({ allPages: res.data })
             let availPages = res.data.map(pages => pages.pageName)
             availPages.unshift("Gallery")
             this.setState({ availablePages: availPages });
         })
-    
+
     }
     getFile = (filePath) => {
         return filePath.substr(filePath.lastIndexOf('\\') + 1).split('.')[0];
@@ -42,22 +44,22 @@ class PhotoForm extends Component {
     handleSubmit = event => {
         event.preventDefault();
         console.log(this.state.fileName.length, this.state.location.length)
-        if (!this.state.location.length&&this.state.location !== "Select Option") {
+        if (!this.state.location.length && this.state.location !== "Select Option") {
             this.setState({ error: "Please Select A Location" })
-        
+
         } else if (!this.state.fileName.length) {
             this.setState({ error: "Please Select A File" })
         } else {
+            this.setState({uploading:true})
             const file = document.getElementById("file").files[0]
-            API.Photos.upload(file,this.state.location,this.context.authToken).then(
-            res=>{
-                this.setState({error:"",fileName:"",location:"Select Option"})
-            }
-            ).catch(err=>{
+            API.Photos.upload(file, this.state.location, this.context.authToken).then( res => {
+                    this.setState({ error: "", fileName: "", location: "Select Option", uploading:false })
+                }
+            ).catch(err => {
                 console.log(err)
-                this.setState({error:"Please Try Again"})
+                this.setState({ error: "Please Try Again", uploading:false })
             })
-            
+
         }
     }
 
@@ -65,10 +67,14 @@ class PhotoForm extends Component {
 
         const defaultOption = this.state.location
         return (
+
             <div className='PhotoForm'>
                 <div className='card'>
                     <div className='card-body'>
-                        {this.state.error && <div id="error">{this.state.error}</div>}
+                    {this.state.error && <div id="error">{this.state.error}</div>}
+                        {this.state.uploading ? (
+                            <div><img src={uploadGif} alt="uploading"/></div>) :
+                          (
                         <form encType="multipart/form-data">
                             Please Select A Page
                         <Dropdown id="dropDown" options={this.state.availablePages} onChange={this._onSelect} value={defaultOption} />
@@ -82,7 +88,7 @@ class PhotoForm extends Component {
 
                             <div className="fileN">{this.state.fileName}</div>
                             <input type="submit" value="Submit" className="btn btn-primary btn-block subButton" onClick={(event) => { this.handleSubmit(event) }} />
-                        </form>
+                        </form>)}
                     </div>
                 </div>
                 <Gall location={'edit'} />
