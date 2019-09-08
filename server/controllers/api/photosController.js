@@ -3,6 +3,7 @@ const { JWTVerifier } = require('../../lib/passport');
 const db = require('../../models');
 const multer = require('multer')
 const storage = require('../../lib/multer')
+const fs = require('fs')
 let upload = multer({ storage: storage });
 var admin = require("firebase-admin");
 var serviceAccount = require("../../lib/keys");
@@ -27,6 +28,13 @@ photosController.post('/', JWTVerifier, upload.single('file'), (req, res) => {
         console.log('file received');
         bucket.upload(`./server/uploads/${req.file.filename}`, function(err, file, apiResponse) {
             if(err)console.log(err)
+            fs.access(`./server/uploads/${req.file.filename}`, fs.F_OK, (err) => {
+                if (err) {
+                  console.error(err)
+                  return
+                }
+                console.log('this file exists')
+              })
             db.Photos.create({ photoName: req.file.filename, location: req.body.location }).then(results => {
                 message = "Successfully! uploaded";
                 res.sendStatus(200)
