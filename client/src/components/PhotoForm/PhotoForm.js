@@ -13,7 +13,8 @@ class PhotoForm extends Component {
         availablePages: [],
         fileName: "",
         error: "",
-        uploading:false
+        uploading:false,
+        count:1
     };
     componentDidMount() {
 
@@ -43,7 +44,6 @@ class PhotoForm extends Component {
 
     handleSubmit = event => {
         event.preventDefault();
-        console.log(this.state.fileName.length, this.state.location.length)
         if (!this.state.location.length && this.state.location !== "Select Option") {
             this.setState({ error: "Please Select A Location" })
 
@@ -53,7 +53,7 @@ class PhotoForm extends Component {
             this.setState({uploading:true})
             const file = document.getElementById("file").files[0]
             API.Photos.upload(file, this.state.location, this.context.authToken).then( res => {
-                    this.setState({ error: "", fileName: "", location: "Select Option", uploading:false })
+                    this.setState({ error: "", fileName: "", location: "Select Option", uploading:false, count:this.state.count+1})
                 }
             ).catch(err => {
                 console.log(err)
@@ -91,7 +91,7 @@ class PhotoForm extends Component {
                         </form>)}
                     </div>
                 </div>
-                <Gall location={'edit'} />
+                <Gall location={'edit'} count={this.state.count}/>
             </div>
         )
     }

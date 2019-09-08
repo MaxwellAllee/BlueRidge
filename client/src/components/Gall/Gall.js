@@ -4,7 +4,7 @@ import './Gall.css'
 import Modal from 'react-modal';
 import moment from 'moment'
 import AuthContext from '../../contexts/AuthContext';
-
+const test = process.env.test
 const customStyles = {
 
   content: {
@@ -24,23 +24,27 @@ class Gall extends Component {
     clickedPhoto: "",
     modal: "",
     modalIsOpen: false,
-    newest: true,
+    newest: false,
     sectionPhoto: true,
     present: false,
-    smile:''
+    smile:'',
+    intial: true
   };
 
   componentDidMount() {
     this.renderPhotos(this.props.location)
   }
-// componentWillReceiveProps(nextProps) {
-//   if(this.props.location !== nextProps.location) {
-
-//     this.renderPhotos(nextProps.location)
-//   }
-// }
+componentWillReceiveProps(nextProps) {
+  if(this.props.count !== nextProps.count) {
+    this.renderPhotos(this.props.location)
+  }
+  if(this.props.location !== nextProps.location) {
+        this.renderPhotos(nextProps.location)
+      }
+}
 
 renderPhotos = (location) => {
+ 
   if (location !== 'gallery') {
     this.setState({ sectionPhoto: false })
   }
@@ -49,14 +53,17 @@ renderPhotos = (location) => {
     let photoz = res.data
 
     if (photoz.length) {
-
-      this.setState({ photos: photoz, mainPhoto: photoz[0].photoName, clickedPhoto: photoz[0].photoName, present: true })
+      console.log('getting photos')
+      this.setState({ photos: photoz, mainPhoto: photoz[photoz.length-1].photoName, clickedPhoto: photoz[photoz.length-1].photoName, present: true })
+      this.sort()
     }
     else {
 
       this.setState({ present: false })
     }
+    this.sort()
   })
+  
 }
 handleDelete(id){
 
@@ -91,17 +98,28 @@ closeModal = () => {
   this.setState({ modalIsOpen: false });
 }
 sort = () => {
+
   let holder = this.state.photos
+if (this.state.newest){
   holder.sort(function (a, b) {
     a = moment(a.createdAt).unix();
-    b = moment(a.createdAt).unix();
-    return a < b ? -1 : a > b ? 1 : 0;
-  })
+    b = moment(b.createdAt).unix();
+    console.log(a,b)
+    return b-a;
+  })}
+  else{
+    holder.sort(function (a, b) {
+    a = moment(a.createdAt).unix();
+    b = moment(b.createdAt).unix();
+    console.log(a,b)
+    return a-b;
+  })}
   this.setState({ photos: holder, newest: !this.state.newest })
 }
 render() {
   let photos = this.state.photos
   const { user } = this.context;
+  console.log(test,'this is test')
   return (
     <div className='Gall'>
       {this.state.present && photos[0].photoName ? (
@@ -121,8 +139,8 @@ render() {
           </Modal>
 
           <div id='switch'>
-            Sort By: {this.state.newest ? <span onClick={this.sort} className="switch"> Oldest</span> :
-              <span onClick={this.sort} className="switch"> Newest </span>}
+            Sort By: {this.state.newest ? <span onClick={this.sort} className="switch"> Newest</span> :
+              <span onClick={this.sort} className="switch"> Oldest</span>}
           </div>
           <div className="gallGrid">
 

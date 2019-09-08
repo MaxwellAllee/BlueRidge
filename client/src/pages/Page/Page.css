@@ -52,7 +52,7 @@
     .pageGrid{
       font-size: .75em;
       grid-template-columns:100%;
-      grid-gap: 1%;
+      grid-gap: 10px;
       grid-template-areas:
       'main '
       'map '
