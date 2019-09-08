@@ -96,6 +96,7 @@ class PageForm extends Component {
             API.Pages.update(pageInfo, this.state.currentId) ? (this.handleCancel()) : (this.setState({ duplicate: true, errMessage: "Nothing Updated" }))
         ) : (API.Pages.create(pageInfo) && this.handleCancel())
     }
+    handleDelete =()=>{}
     handleCancel = () => {
         this.setState(
             {

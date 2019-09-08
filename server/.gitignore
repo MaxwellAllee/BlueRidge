@@ -47,4 +47,4 @@ typings/
 .env.test
 
 # test photos
-/public/uploads
+uploads/

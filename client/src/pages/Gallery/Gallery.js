@@ -1,7 +1,8 @@
 import React, { Component } from 'react';
 
-import './assets/css/Gallery.css'
 import Gall from '../../components/Gall/Gall'
+
+// Get a reference to the storage service, which is used to create references in your storage bucket
 
 class Gallery extends Component {
  

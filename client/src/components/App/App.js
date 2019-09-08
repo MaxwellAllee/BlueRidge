@@ -105,7 +105,6 @@ class App extends Component {
           <Navigation {...this.state} />
           <div className='container'>
             <Switch>
-
               <Route   path='/login' render={(props)=><Login {...props} {...this.state}/>} />
               <Route exact path='/' component={Home} />
               <Route   path='/page/' render={(props)=><Page {...props} {...this.state}/>}/>   

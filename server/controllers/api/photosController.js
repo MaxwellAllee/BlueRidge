@@ -4,6 +4,14 @@ const db = require('../../models');
 const multer = require('multer')
 const storage = require('../../lib/multer')
 let upload = multer({ storage: storage });
+var admin = require("firebase-admin");
+var serviceAccount = require("../../lib/keys");
+
+admin.initializeApp({
+    credential: admin.credential.cert(serviceAccount),
+    storageBucket: "bikeappalachia.appspot.com"
+});
+var bucket = admin.storage().bucket();
 photosController.post('/delete/',  JWTVerifier, (req, res) => {
     db.Photos.destroy({ where: { id: req.body.id } }).then(results => {
         res.json(results)
@@ -17,11 +25,14 @@ photosController.post('/', JWTVerifier, upload.single('file'), (req, res) => {
 
     } else {
         console.log('file received');
-        console.log(req.body.location, "the body")
-        db.Photos.create({ photoName: req.file.filename, location: req.body.location }).then(results => {
-            message = "Successfully! uploaded";
-            res.sendStatus(200)
+        bucket.upload(`./server/uploads/${req.file.filename}`, function(err, file, apiResponse) {
+            if(err)console.log(err)
+            db.Photos.create({ photoName: req.file.filename, location: req.body.location }).then(results => {
+                message = "Successfully! uploaded";
+                res.sendStatus(200)
+            })
         });
+        
     }
 });
 photosController.get('/:id', (req, res) => {
