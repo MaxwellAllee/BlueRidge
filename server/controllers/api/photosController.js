@@ -6,7 +6,7 @@ const storage = require('../../lib/multer')
 let upload = multer({ storage: storage });
 var admin = require("firebase-admin");
 var serviceAccount = require("../../lib/keys");
-
+console.log(process.env.test)
 admin.initializeApp({
     credential: admin.credential.cert(serviceAccount),
     storageBucket: "bikeappalachia.appspot.com"
