@@ -31,7 +31,7 @@ class Gall extends Component {
   };
 
   componentDidMount() {
-    
+    this.renderPhotos(this.props.location)
   }
 // componentWillReceiveProps(nextProps) {
 //   if(this.props.location !== nextProps.location) {
@@ -115,7 +115,7 @@ render() {
             contentLabel=" Modal"
           >
 
-            <img src={`/uploads/${this.state.modal}`}
+            <img src={`https://firebasestorage.googleapis.com/v0/b/bikeappalachia.appspot.com/o/${this.state.modal}?alt=media`}
               ref={subtitle => this.subtitle = subtitle}
               className="modalPhoto" alt={`Modal of ${this.state.modal}`} />
           </Modal>
@@ -130,7 +130,7 @@ render() {
 
               return (
                 <div key={filez.id}>
-                  <img src={`/uploads/${filez.photoName}`} className="gallPhoto"
+                  <img src={`https://firebasestorage.googleapis.com/v0/b/bikeappalachia.appspot.com/o/${filez.photoName}?alt=media`} className="gallPhoto"
                     onMouseOver={() => { this.hoverAction(filez.photoName) }} onMouseOut={this.switchBack}
                     onClick={() => { this.openModal(filez.photoName) }} alt={filez._id} />
                   {user && <button type="button" className="btn btn-danger" onClick={() => { this.handleDelete(filez.id) }}>Delete</button>}
@@ -141,7 +141,7 @@ render() {
               )}
 
 
-            {this.state.sectionPhoto && <div className="focus"><img src={`uploads/${this.state.mainPhoto}`}
+            {this.state.sectionPhoto && <div className="focus"><img src={`https://firebasestorage.googleapis.com/v0/b/bikeappalachia.appspot.com/o/${this.state.mainPhoto}?alt=media`}
               onClick={() => { this.openModal(this.state.mainPhoto) }} className="mainPhoto"
               alt={`main ${this.state.mainPhoto + Math.floor(Math.random() * 10)}`} /></div>}
 
