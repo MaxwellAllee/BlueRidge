@@ -26,9 +26,9 @@ photosController.post('/', JWTVerifier, upload.single('file'), (req, res) => {
 
     } else {
         console.log('file received');
-        bucket.upload(`./server/uploads/${req.file.filename}`, function(err, file, apiResponse) {
+        bucket.upload(`./uploads/${req.file.filename}`, function(err, file, apiResponse) {
             if(err)console.log(err)
-            fs.access(`./server/uploads/${req.file.filename}`, fs.F_OK, (err) => {
+            fs.access(`./uploads/${req.file.filename}`, fs.F_OK, (err) => {
                 if (err) {
                   console.error(err)
                   console.log('===============================================================')
