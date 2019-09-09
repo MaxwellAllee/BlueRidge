@@ -31,6 +31,7 @@ photosController.post('/', JWTVerifier, upload.single('file'), (req, res) => {
             fs.access(`./server/uploads/${req.file.filename}`, fs.F_OK, (err) => {
                 if (err) {
                   console.error(err)
+                  console.log('===============================================================')
                   return
                 }
                 console.log('this file exists')
