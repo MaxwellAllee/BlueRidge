@@ -136,6 +136,7 @@ render() {
             <img src={`https://firebasestorage.googleapis.com/v0/b/bikeappalachia.appspot.com/o/${this.state.modal}?alt=media`}
               ref={subtitle => this.subtitle = subtitle}
               className="modalPhoto" alt={`Modal of ${this.state.modal}`} />
+              
           </Modal>
 
           <div id='switch'>
