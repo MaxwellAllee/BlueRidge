@@ -25,8 +25,6 @@ photosController.post('/', JWTVerifier, upload.single('file'), (req, res) => {
         res.sendStatus(500);
 
     } else {
-        console.log('````````````````````````````````````````````````````````````````````');
-        console.log(serviceAccount)
         bucket.upload(`./server/uploads/${req.file.filename}`, function(err, file, apiResponse) {
             if(err)console.log(err)
             db.Photos.create({ photoName: req.file.filename, location: req.body.location }).then(results => {
