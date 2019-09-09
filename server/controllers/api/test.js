@@ -3,16 +3,7 @@ const { JWTVerifier } = require('../../lib/passport');
 const db = require('../../models');
 const multer = require('multer')
 const storage = require('../../lib/multer')
-const fs = require('fs')
 let upload = multer({ storage: storage });
-var admin = require("firebase-admin");
-var serviceAccount = require("../../lib/keys");
-console.log(process.env.test, 'this is test')
-admin.initializeApp({
-    credential: admin.credential.cert(serviceAccount),
-    storageBucket: "bikeappalachia.appspot.com"
-});
-var bucket = admin.storage().bucket();
 photosController.post('/delete/',  JWTVerifier, (req, res) => {
     db.Photos.destroy({ where: { id: req.body.id } }).then(results => {
         res.json(results)
@@ -26,14 +17,11 @@ photosController.post('/', JWTVerifier, upload.single('file'), (req, res) => {
 
     } else {
         console.log('file received');
-        bucket.upload(`./uploads/${req.file.filename}`, function(err, file, apiResponse) {
-            if(err)console.log(err)
-            db.Photos.create({ photoName: req.file.filename, location: req.body.location }).then(results => {
-                message = "Successfully! uploaded";
-                res.sendStatus(200)
-            })
+        console.log(req.body.location, "the body")
+        db.Photos.create({ photoName: req.file.filename, location: req.body.location }).then(results => {
+            message = "Successfully! uploaded";
+            res.sendStatus(200)
         });
-        
     }
 });
 photosController.get('/:id', (req, res) => {
