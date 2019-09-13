@@ -19,31 +19,12 @@ class HomePage extends Component {
             <img src="https://images.pexels.com/photos/1149601/pexels-photo-1149601.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=750&w=1260"
               alt="random biker" id="guy" />
             <div className="text">
-              <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor
-                  incididunt ut labore et dolore magna aliqua. Blandit cursus risus at ultrices mi tempus. Elit
-                  sed
-                  vulputate mi sit amet mauris commodo quis. Neque viverra justo nec ultrices dui sapien eget mi
-                  proin. Amet luctus venenatis lectus magna fringilla urna porttitor. Id interdum velit laoreet id
-                  donec ultrices tincidunt arcu non. Elementum facilisis leo vel fringilla est. Quam nulla
-                  porttitor
-                  massa id neque aliquam vestibulum morbi blandit. Egestas fringilla phasellus faucibus
-                  scelerisque.
-                  Adipiscing tristique risus nec feugiat in fermentum posuere. Id leo in vitae turpis. Pharetra
-                  sit
-                            amet aliquam id diam.</p>
-              <p>
-                Nibh cras pulvinar mattis nunc sed blandit. Id faucibus nisl tincidunt eget nullam. Aliquam
-                faucibus
-                purus in massa tempor. Vitae congue mauris rhoncus aenean. Eu nisl nunc mi ipsum. Et netus et
-                malesuada fames ac turpis egestas. Ac turpis egestas maecenas pharetra. Nunc eget lorem dolor
-                sed.
-                Pretium vulputate sapien nec sagittis aliquam malesuada bibendum arcu. Vitae tempus quam
-                pellentesque nec nam. In eu mi bibendum neque egestas congue quisque. Vel quam elementum
-                pulvinar
-                etiam non quam. Vitae proin sagittis nisl rhoncus mattis. Sed viverra tellus in hac. Massa vitae
-                tortor condimentum lacinia quis vel eros. Dapibus ultrices in iaculis nunc sed augue lacus.
-                Ultrices
-                            gravida dictum fusce ut placerat. Volutpat commodo sed egestas egestas fringilla.</p>
+              <p>Welcome!  The purpose of this website is to chronicle my trip biking the southern appalachians and expand my web dev skills. The start of the trip will be at the north entrance of the Shenandoah National Park. The route will continue along the Blue Ridge Parkway, with a possible jaunt through the Great Smoky Mountain National Park. I have been preparing for this trip for about six months and am super excited the start is finally here!
+</p><p>
+The plan for this website is for it be updated each day along the journey with photos and stats. Just as the success of the trip is not guaranteed, keeping the website up or current is not guaranteed.  I will try my best and I appreciate all your best wishes!
+<br/>
+-Max  
+</p>
 
 
 
