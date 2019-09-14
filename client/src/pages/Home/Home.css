@@ -1,3 +1,4 @@
-p{
+.text p{
+    text-align: left;
     font-size: .75em;
 }
