@@ -16,7 +16,7 @@ class HomePage extends Component {
         <div className="content-grid-container">
           <div className="content-grid-item"></div>
           <div className="content-grid-item text-area">
-            <img src="https://images.pexels.com/photos/1149601/pexels-photo-1149601.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=750&w=1260"
+            <img src="./bike.jpg"
               alt="random biker" id="guy" />
             <div className="text">
               <p>Welcome!  The purpose of this website is to chronicle my trip biking the southern appalachians and expand my web dev skills. The start of the trip will be at the north entrance of the Shenandoah National Park. The route will continue along the Blue Ridge Parkway, with a possible jaunt through the Great Smoky Mountain National Park. I have been preparing for this trip for about six months and am super excited the start is finally here!
