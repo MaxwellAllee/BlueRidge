@@ -1,6 +1,5 @@
 import React, { Component } from 'react';
 
-
 import './Home.css'
 class HomePage extends Component {
   state = {
