@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import bikephoto from 'bike.jpg'
+import bikephoto from './bike.jpg'
 import './Home.css'
 class HomePage extends Component {
   state = {
