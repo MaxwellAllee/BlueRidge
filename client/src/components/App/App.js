@@ -17,11 +17,9 @@ import Page from '../../pages/Page/Page'
 import './App.css';
 import globalBackground from './backgroundImage/background.jpg'
 import nightBackground from './backgroundImage/night1.jpg'
-import map1 from '../Map/maps/br1.png'
-import map2 from '../Map/maps/SD1.png'
-import map3 from '../Map/maps/SD2.png'
+import fourofour from './backgroundImage/404.jpg'
 class App extends Component {
-  
+
   constructor(props) {
     super(props);
 
@@ -41,31 +39,28 @@ class App extends Component {
         authToken: TokenStore.getToken(),
         onLogin: this.handleLogin,
         onLogout: this.handleLogout,
-        
-        
+
+
       },
-      another:"test",
-      test:false,
-      click: (change)=>{
+      another: "test",
+      test: false,
+      click: (change) => {
         console.log(change)
-        this.setState({test:change})
-        
+        this.setState({ test: change })
+
       },
-      backChange: (change)=>{
-        console.log(change, "clicked")
-        if(change){
-          this.setState({background:nightBackground})
-        }else{
-          this.setState({background:globalBackground})
-        }
+      backChange: (change) => {
+        if (change === 'night') this.setState({ background: nightBackground })
+        else if (change === 'home') this.setState({ background: globalBackground })
+        else if (change === 'four') this.setState({ background: fourofour })
       },
       background: globalBackground,
     }
   }
-  
-  
+
+
   componentDidMount() {
-   this.rest()
+    this.rest()
     const { authToken } = this.state.auth;
     if (!authToken) return;
 
@@ -73,52 +68,45 @@ class App extends Component {
       .then(response => response.data)
       .then(user => this.setState(prevState => ({ auth: { ...prevState.auth, user } })))
       .catch(err => console.log(err));
-    
-      
+
+
   }
-  rest =()=>{
+  rest = () => {
     API.Pages.allPages().then(pages => {
       let holder = pages.data
-      
+
       holder.sort(function (a, b) {
         a = moment(a.pageName).unix();
         b = moment(b.pageName).unix();
-       
+
         return a > b ? -1 : a < b ? 1 : 0;
       })
-  
-      let names =holder.map(pages => pages.pageName)
-      this.setState({pageNames:names, availablePages:holder})
-      
+
+      let names = holder.map(pages => pages.pageName)
+      this.setState({ pageNames: names, availablePages: holder })
+
     })
   }
   render() {
-    const hiddenLoad ={'backgroundImage' : `url(${nightBackground})`, 'noRepeat': '-9999px -9999px'}
-    const hiddenLoad1 ={'backgroundImage' : `url(${map1})`, 'noRepeat': '-9999px -9999px'}
-    const hiddenLoad2 ={'backgroundImage' : `url(${map2})`, 'noRepeat': '-9999px -9999px'}
-    const hiddenLoad3 ={'backgroundImage' : `url(${map3})`, 'noRepeat': '-9999px -9999px'}
-    
-    const bStyle = {'backgroundImage': `url(${this.state.background})`}
+    const bStyle = { 'backgroundImage': `url(${this.state.background})` }
+    const hiddenLoad = { 'backgroundImage': `url(${nightBackground})`, 'noRepeat': '-9999px -9999px' }
     return (
       <AuthContext.Provider value={this.state.auth}>
         <div className='App' style={bStyle}>
           <Navigation {...this.state} />
           <div className='container'>
             <Switch>
-              <Route   path='/login' render={(props)=><Login {...props} {...this.state}/>} />
+              <Route path='/login' render={(props) => <Login {...props} {...this.state} />} />
               <Route exact path='/' component={Home} />
-              <Route   path='/page/' render={(props)=><Page {...props} {...this.state}/>}/>   
+              <Route path='/page/' render={(props) => <Page {...props} {...this.state} />} />
               <PrivateRoute path='/secret' component={Secret} />
               <PrivateRoute path='/addphoto' component={addPhoto} />
               <PrivateRoute path='/addpage' component={addPage} />
-              <Route exact path='/gallery' component={Gallery}/>
-              <Route component={NotFound} />
+              <Route exact path='/gallery' render={(props) => <Gallery {...props} back={this.state.backChange} />} />
+              <Route render={(props) => <NotFound {...props} back={this.state.backChange} />} />
             </Switch>
           </div>
           <div style={hiddenLoad}></div>
-          <div style={hiddenLoad1}></div>
-          <div style={hiddenLoad2}></div>
-          <div style={hiddenLoad3}></div>
         </div>
       </AuthContext.Provider>
     );

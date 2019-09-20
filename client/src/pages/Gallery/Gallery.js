@@ -13,6 +13,12 @@ class Gallery extends Component {
     mounted:false,
     currentPage : 'gallery'
   }
+  componentDidMount(){
+    this.props.back('night')
+  }
+  componentWillUnmount(){
+    this.props.back('home')
+  }
 
   render() {
     return (

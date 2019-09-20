@@ -1,12 +1,22 @@
-import React from 'react';
-import { Link } from 'react-router-dom';
+import React, { Component } from 'react';
+import './NotFound.css'
 
-export default () => (
-  <div className='NotFound'>
-    <h1>Oops!</h1>
-    <p>
-      Sorry, the page you requested cannot be found. <Link to='/'>Click
-      here</Link> to return to the home page.
-    </p>
-  </div>
-);
+class NotFound extends Component {
+  componentDidMount(){
+    this.props.back('four')
+  }
+  componentWillUnmount(){
+    this.props.back('home')
+  }
+  render() {
+    return (
+      <div className='NotFound'>
+        <h1>Oops!</h1>
+        <h2 className="nF">Page Not Found</h2>
+        <h3> Go to the home to fix the flat</h3>
+      </div>
+    )
+  }
+};
+
+export default NotFound

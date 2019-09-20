@@ -1,7 +1,7 @@
 {
   "development": {
     "username": "root",
-    "password": "Password01",
+    "password": "Password",
     "database": "BlueR",
     "host": "127.0.0.1",
     "dialect": "mysql",
