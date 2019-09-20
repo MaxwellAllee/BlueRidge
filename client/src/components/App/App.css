@@ -1,7 +1,13 @@
 .App {
   text-align: center;
-}
 
+}
+#root{
+  background-image: url(./backgroundImage/background.jpg);
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: cover; 
+}
 .App-logo {
   animation: App-logo-spin infinite 20s linear;
   height: 40vmin;

@@ -7,7 +7,7 @@ function TextBox(props){
         <div className='jumbotron'>
           <h2>Notes for {props.name}:</h2>
           <div className='content'>
-            {props.text}
+            <p>{props.text.split('<p>').map(text =><p> {text}</p>)}</p>
           </div>
 
         </div>
