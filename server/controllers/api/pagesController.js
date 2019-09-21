@@ -19,13 +19,12 @@ pagesController.get('/auth', JWTVerifier,(req, res) => {
 
   db.Pages.findAll()
     .then(pages => {
-      console.log(pages)
       res.json(pages)})
     .catch(err => console.log(err))
 
 }); 
 pagesController.get('/:id',(req, res) => {
-  console.log(req.params.id, "this is ID")
+
    db.Pages.findOne({where:{pageName:req.params.id, public:true}})
     .then(page => {
       res.json(page)
@@ -36,7 +35,6 @@ pagesController.post('/',(req, res) => {
   
   db.Pages.update(req.body.pageInfo,{where:{id:req.body.id}})
     .then(results => {
-      console.log(results)
       res.json(results)
       })
     .catch(err => console.log(err));
@@ -45,7 +43,6 @@ pagesController.put('/',(req, res) => {
   
   db.Pages.create(req.body)
     .then(results => {
-      console.log(results)
       res.json(results)
       })
     .catch(err => console.log(err));

@@ -7,7 +7,6 @@ const fs = require('fs')
 let upload = multer({ storage: storage });
 var admin = require("firebase-admin");
 var serviceAccount = require("../../lib/keys");
-console.log(process.env.test, 'this is test')
 admin.initializeApp({
     credential: admin.credential.cert(serviceAccount),
     storageBucket: "bikeappalachia.appspot.com"
@@ -19,7 +18,6 @@ photosController.post('/delete/',  JWTVerifier, (req, res) => {
     })
 })
 photosController.post('/', JWTVerifier, upload.single('file'), (req, res) => {
-    console.log('made it')
     if (!req.file) {
         console.log("No file received");
         res.sendStatus(500);
@@ -36,14 +34,12 @@ photosController.post('/', JWTVerifier, upload.single('file'), (req, res) => {
     }
 });
 photosController.get('/:id', (req, res) => {
-    console.log(req.param.id, 'lookup')
+
     const pageLookUp = {}
-    console.log(req.params.id)
+
     if (req.params.id !== 'gallery' && req.params.id !== 'edit') {
         pageLookUp.where = { location: req.params.id }
     }
-    console.log('---------------------------------------------------------------------------------------------------')
-    console.log(pageLookUp)
     db.Photos.findAll(pageLookUp).then(photos => {
         res.json(photos)
     }).catch((err) => {

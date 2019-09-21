@@ -20,7 +20,6 @@ class Archive extends Component {
     if (this.node.contains(e.target)){
       return
     }
-    console.log('made it here')
     this.toggleOpen()
   }
 

@@ -10,7 +10,6 @@ let config ={}
 const db = {};
 if(process.env.LOCAL){
   console.log("local")
-  console.log(process.env.PASSWORD)
   config ={"username" : process.env.USERNAM,
     "password": process.env.PASSWORD,
     "database": process.env.DB,
@@ -18,7 +17,6 @@ if(process.env.LOCAL){
      "dialect": "mysql",
      //'dialectModule': mysql2
     }
-     console.log(config)
 }else{
   console.log("foreign")
  config = require(__dirname + '/../config/config.json')[env];
