@@ -19,10 +19,11 @@ pagesController.get('/auth', JWTVerifier,(req, res) => {
 
   db.Pages.findAll()
     .then(pages => {
-      
+      console.log(pages)
       res.json(pages)})
-    .catch(err => console.log(err));
-});
+    .catch(err => console.log(err))
+
+}); 
 pagesController.get('/:id',(req, res) => {
   console.log(req.params.id, "this is ID")
    db.Pages.findOne({where:{pageName:req.params.id, public:true}})
