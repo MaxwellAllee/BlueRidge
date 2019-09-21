@@ -10,7 +10,6 @@ photosController.post('/delete/',  JWTVerifier, (req, res) => {
     })
 })
 photosController.post('/', JWTVerifier, upload.single('file'), (req, res) => {
-    console.log('made it')
     if (!req.file) {
         console.log("No file received");
         res.sendStatus(500);

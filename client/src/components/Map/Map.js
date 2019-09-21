@@ -87,7 +87,6 @@ class Map extends Component {
     start-= mapStart
     finish -= mapStart
     mileTotal -= mapStart
-    console.log(start, mileTotal, finish, mapStart)
     if(start<0) start = 0
     if (start) {
       if (offset) {

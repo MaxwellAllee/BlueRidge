@@ -53,7 +53,6 @@ renderPhotos = (location) => {
     let photoz = res.data
 
     if (photoz.length) {
-      console.log('getting photos')
       this.setState({ photos: photoz, mainPhoto: photoz[photoz.length-1].photoName, clickedPhoto: photoz[photoz.length-1].photoName, present: true })
       this.sort()
     }
@@ -104,14 +103,12 @@ if (this.state.newest){
   holder.sort(function (a, b) {
     a = moment(a.createdAt).unix();
     b = moment(b.createdAt).unix();
-    console.log(a,b)
     return b-a;
   })}
   else{
     holder.sort(function (a, b) {
     a = moment(a.createdAt).unix();
     b = moment(b.createdAt).unix();
-    console.log(a,b)
     return a-b;
   })}
   this.setState({ photos: holder, newest: !this.state.newest })
@@ -119,7 +116,6 @@ if (this.state.newest){
 render() {
   let photos = this.state.photos
   const { user } = this.context;
-  console.log(test,'this is test')
   return (
     <div className='Gall'>
       {this.state.present && photos[0].photoName ? (

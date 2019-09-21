@@ -45,7 +45,6 @@ class App extends Component {
       another: "test",
       test: false,
       click: (change) => {
-        console.log(change)
         this.setState({ test: change })
 
       },

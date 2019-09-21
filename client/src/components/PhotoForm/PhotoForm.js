@@ -19,7 +19,6 @@ class PhotoForm extends Component {
     componentDidMount() {
 
         API.Pages.sortPagesAuth(this.context.authToken).then(res => {
-            console.log(res.data)
             this.setState({ allPages: res.data })
             let availPages = res.data.map(pages => pages.pageName)
             availPages.unshift("Gallery")
