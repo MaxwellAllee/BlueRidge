@@ -22,7 +22,7 @@
     "react-router": "^4.3.1",
     "react-router-dom": "^4.3.1",
     "react-scripts": "2.1.5",
-    "set-value": "^3.0.1"
+    "set-value": "^4.0.1"
   },
   "scripts": {
     "start": "react-scripts start",
